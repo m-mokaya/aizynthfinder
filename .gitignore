@@ -143,3 +143,9 @@ coverage/
 # Files created by the tool
 smiles.txt
 config_local.yml
+
+#Large data file 
+./aizynthfinder/uspto_model.hdf5
+./aizynthfinder/uspto_templates.hdf5
+./aizynthfinder/zinc_stock.hdf5
+./aizynthfinder/uspto_filter_model.hdf5

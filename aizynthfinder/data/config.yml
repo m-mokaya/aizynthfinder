@@ -1,11 +1,11 @@
 policy:
   files:
     uspto:
-      - /data/pegasus/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/uspto_model.hdf5
-      - /data/pegasus/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/uspto_templates.hdf5
+      - /data/fenghuang/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
+      - /data/fenghuang/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
 filter:
   files:
-    uspto: /data/pegasus/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/uspto_filter_model.hdf5
+    uspto: /data/fenghuang/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
 stock:
   files:
-    zinc: /data/pegasus/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/zinc_stock.hdf5
+    zinc: /data/fenghuang/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/zinc_stock.hdf5

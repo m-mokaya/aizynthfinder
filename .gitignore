@@ -149,3 +149,8 @@ config_local.yml
 ./aizynthfinder/uspto_templates.hdf5
 ./aizynthfinder/zinc_stock.hdf5
 ./aizynthfinder/uspto_filter_model.hdf5
+
+./aizynthfinder/data/uspto_model.hdf5
+./aizynthfinder/data/uspto_templates.hdf5
+./aizynthfinder/data/uspto_filter_model.hdf5
+./aizynthfinder/data/zinc_stock.hdf5

@@ -84,6 +84,11 @@ class ExpansionPolicy(ContextCollection):
                     metadata["policy_probability"] = float(probs[idx].round(4))
                     metadata["policy_name"] = policy_key
                     metadata["template_code"] = move_index
+
+                    # augment policy probability relative to reactions classification.
+                    if metadata.get('classification') == 'N-acylation to amide':
+                        probs[idx] = float(0)
+
                     possible_actions.append(
                         RetroReaction(
                             mol, move[self._config.template_column], metadata=metadata
@@ -153,6 +158,7 @@ class ExpansionPolicy(ContextCollection):
     @staticmethod
     def _predict(mol: TreeMolecule, model: Any) -> np.ndarray:
         fp_arr = _make_fingerprint(mol, model)
+        #exp_policy_pred =  np.array(model.predict(fp_arr)).flatten()
         return np.array(model.predict(fp_arr)).flatten()
 
 
@@ -242,6 +248,7 @@ class FilterPolicy(ContextCollection):
 
         model = self[self.selection]["model"]
         prod_fp, rxn_fp = self._reaction_to_fingerprint(reaction, model)
+        policy_pred = model.predict([prod_fp, rxn_fp])[0][0]
         return model.predict([prod_fp, rxn_fp])[0][0]
 
     @staticmethod

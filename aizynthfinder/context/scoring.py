@@ -161,6 +161,30 @@ class NumberOfReactionsScorer(Scorer):
         return len(list(tree.reactions()))
 
 
+class USPTOModelPolicyProbabilityScorer(Scorer):
+    """Class for scoring recation trees based on the policy prediction value given by USPTO expansion model"""
+        
+    def __repr__(self) -> str:
+        return 'policy preduction value'
+    
+    def _score_node(self, node: node) -> float:
+        reactions, _ = node.tree.route_to_node(node)
+        if not reactions:
+            return 0.0
+        policy_probs = [
+            reaction.metadata.get("policy_probability", 0) for reaction in reactions
+        ]
+        return sum(policy_probs) / len(reactions)
+    
+    def _score_reaction_tree(self, tree: ReactionTree) -> float:
+        reactions = list(tree.reactions())
+        if not reactions:
+            return 0.0
+        policy_probs = [
+            reaction.metadata.get("policy_probability", 0) for reaction in reactions
+        ] 
+        return sum(policy_probs) / len(reactions)
+
 class NumberOfPrecursorsScorer(Scorer):
     """Class for scoring nodes based on the number of pre-cursors in a node or route"""
 
@@ -336,6 +360,7 @@ _SIMPLE_SCORERS = [
     NumberOfPrecursorsScorer,
     NumberOfPrecursorsInStockScorer,
     AverageTemplateOccurenceScorer,
+    USPTOModelPolicyProbabilityScorer,
 ]
 
 

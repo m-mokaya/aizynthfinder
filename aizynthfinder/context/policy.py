@@ -85,15 +85,14 @@ class ExpansionPolicy(ContextCollection):
                     metadata["policy_name"] = policy_key
                     metadata["template_code"] = move_index
                     
-                    '''
+                    
                     # augment policy probability relative to reactions classification.
                     if metadata.get('classification') == 'N-acylation to amide':
                         print('REACTION - N-ACYLATION TO AMIDE (before): ', probs[idx])
                         probs[idx] = float(0)
                         print('REACTION - N-ACYLATION TO AMIDE (after): ', probs[idx])
-
-                    metadata['policy_probability'] = float(0)
-                    '''
+                        metadata['policy_probability'] = float(0)
+                    
 
                     possible_actions.append(
                         RetroReaction(

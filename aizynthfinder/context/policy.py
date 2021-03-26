@@ -88,10 +88,11 @@ class ExpansionPolicy(ContextCollection):
                     
                     # augment policy probability relative to reactions classification.
                     if metadata.get('classification') == 'N-acylation to amide':
-                        #print('REACTION - N-ACYLATION TO AMIDE (before): ', probs[idx])
+                        print('REACTION - N-ACYLATION TO AMIDE (before): ', probs[idx])
                         probs[idx] = float(0)
-                        #print('REACTION - N-ACYLATION TO AMIDE (after): ', probs[idx])
+                        print('REACTION - N-ACYLATION TO AMIDE (after): ', probs[idx])
                         metadata['policy_probability'] = float(0)
+                        print('RXN FNGPT: ', _make_fingerprint(RetroReaction(mol, move[self._config.template_column], metadata=metadata), model))
                     
 
                     possible_actions.append(
@@ -201,6 +202,16 @@ class FilterPolicy(ContextCollection):
             return False, 0.0
 
         prob = self._predict(reaction)
+
+        print('F Prob (before): ', str(prob))
+
+        # augment reaction feasibility score based on reaction classification
+        metadata = reaction.metadata
+        if metadata.get('classification') == 'N-acylation to amide':
+            prob = 0
+
+        print('F Prob (after): ', str(prob))
+
         feasible = prob >= self._config.filter_cutoff
         return feasible, prob
 

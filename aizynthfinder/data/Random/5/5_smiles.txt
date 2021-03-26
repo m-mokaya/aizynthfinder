@@ -1,5 +1,1 @@
 CC(C)C(NC(=O)C1CSSC(C)(C)C(NC(=O)C(N)CC(=O)O)C(=O)NC(Cc2ccccc2)C(=O)NC(Cc2c[nH]c3ccccc23)C(=O)NC(CCCN)C(=O)NC(Cc2nc3ccccc3s2)C(=O)N1)C(=O)O
-CC(=O)NC(C)c1ccc(OC2CCN(c3nc(N4CCCCC4)ncc3Cl)C2)cc1
-CC(C)c1ccc(-c2noc(C3CCCN(C(=O)c4ccc(F)cc4F)C3)n2)cc1
-CC(C)(C)NS(=O)(=O)c1ccc2c(c1)Nc1ccccc1CC2
-CC(C)c1ccc(S(=O)(=O)N2CCN(C(=O)C3CC3C)CC2)cc1

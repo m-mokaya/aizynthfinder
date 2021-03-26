@@ -92,7 +92,12 @@ class ExpansionPolicy(ContextCollection):
                         probs[idx] = float(0)
                         print('REACTION - N-ACYLATION TO AMIDE (after): ', probs[idx])
                         metadata['policy_probability'] = float(0)
+<<<<<<< HEAD
                         print('RXN FNGPT: ', _make_fingerprint(RetroReaction(mol, move[self._config.template_column], metadata=metadata), model))
+=======
+                        retro = RetroReaction(mol, move[self._config.template_column], metadata=metadata)
+                        print('Reaction metadata: ', retro.metadata)
+>>>>>>> bad6f244b3690e9eff3b7fe0fee38d448a5c41fa
                     
 
                     possible_actions.append(
@@ -262,12 +267,12 @@ class FilterPolicy(ContextCollection):
             raise PolicyException("No policy selected.")
 
 
-        print('RetroReaction Metadata: ', reaction.metadata)
+        print('RetroReaction Metadata: ', str(reaction.metadata))
 
         model = self[self.selection]["model"]
         prod_fp, rxn_fp = self._reaction_to_fingerprint(reaction, model)
 
-        print('RXN fngpt: ', rxn_fp)
+        print('RXN fngpt: ', str(rxn_fp))
 
         policy_pred = model.predict([prod_fp, rxn_fp])[0][0]
         return model.predict([prod_fp, rxn_fp])[0][0]

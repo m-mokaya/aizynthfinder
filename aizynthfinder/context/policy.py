@@ -77,7 +77,6 @@ class ExpansionPolicy(ContextCollection):
                 possible_moves = templates.iloc[probable_transforms_idx]
                 probs = all_transforms_prop[probable_transforms_idx]
 
-                priors.extend(probs)
                 for idx, (move_index, move) in enumerate(possible_moves.iterrows()):
                     metadata = dict(move)
                     del metadata[self._config.template_column]
@@ -92,19 +91,18 @@ class ExpansionPolicy(ContextCollection):
                         probs[idx] = float(0)
                         print('REACTION - N-ACYLATION TO AMIDE (after): ', probs[idx])
                         metadata['policy_probability'] = float(0)
-<<<<<<< HEAD
-                        print('RXN FNGPT: ', _make_fingerprint(RetroReaction(mol, move[self._config.template_column], metadata=metadata), model))
-=======
                         retro = RetroReaction(mol, move[self._config.template_column], metadata=metadata)
                         print('Reaction metadata: ', retro.metadata)
->>>>>>> bad6f244b3690e9eff3b7fe0fee38d448a5c41fa
                     
+
 
                     possible_actions.append(
                         RetroReaction(
                             mol, move[self._config.template_column], metadata=metadata
                         )
                     )
+
+                priors.extend(probs)
         return possible_actions, priors
 
     def load(self, source: Union[str, Any], templatefile: str, key: str) -> None:  # type: ignore

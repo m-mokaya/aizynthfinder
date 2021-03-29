@@ -13,6 +13,7 @@ from aizynthfinder.context.policy import ExpansionPolicy, FilterPolicy
 from aizynthfinder.context.stock import Stock
 from aizynthfinder.context.scoring import ScorerCollection
 
+
 if TYPE_CHECKING:
     from aizynthfinder.utils.type_utils import StrDict, Any
 
@@ -50,10 +51,12 @@ class Configuration:
     template_column: str = "retro_template"
     prune_cycles_in_search: bool = True
     use_remote_models: bool = False
+    policy_values: str = ''
     stock: Stock = None  # type: ignore
     expansion_policy: ExpansionPolicy = None  # type: ignore
     filter_policy: FilterPolicy = None  # type: ignore
     scorers: ScorerCollection = None  # type: ignore
+    
 
     def __post_init__(self) -> None:
         self._properties: StrDict = {}

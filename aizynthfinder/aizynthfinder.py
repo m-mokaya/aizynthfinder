@@ -41,7 +41,7 @@ class AiZynthFinder:
     :param configdict: the config as a dictionary source, defaults to None
     """
 
-    def __init__(self, configfile: str = None, configdict: StrDict = None) -> None:
+    def __init__(self, configfile: str = None, configdict: StrDict = None, policy_values: str = None) -> None:
         self._logger = logger()
 
         if configfile:
@@ -60,6 +60,7 @@ class AiZynthFinder:
         self.search_stats: StrDict = dict()
         self.routes = RouteCollection([])
         self.analysis: Optional[TreeAnalysis] = None
+        
 
     @property
     def target_smiles(self) -> str:

@@ -68,6 +68,7 @@ class ExpansionPolicy(ContextCollection):
 
         count_list = []
         for mol in molecules:
+            count = 0
             if mol in self._stock:
                 continue
 
@@ -86,7 +87,7 @@ class ExpansionPolicy(ContextCollection):
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())
                 
-                count = 0
+                
                 for idx, (move_index, move) in enumerate(possible_moves.iterrows()):
                     metadata = dict(move)
                     del metadata[self._config.template_column]

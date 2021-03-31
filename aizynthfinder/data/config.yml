@@ -1,11 +1,12 @@
 properties:
   iteration_limit: 100
   return_first: false
-  time_limit: 120
+  time_limit: 240
   C: 1.4
   cutoff_cumulative: 0.995
   cutoff_number: 50
   max_transforms: 12
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/Random/PolicyDicts/aug0.json'
 policy:
   files:
     uspto:

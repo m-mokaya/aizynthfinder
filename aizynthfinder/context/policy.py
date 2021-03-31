@@ -9,6 +9,7 @@ import pandas as pd
 from aizynthfinder.chem import RetroReaction
 from aizynthfinder.utils.models import load_model
 from aizynthfinder.context.collection import ContextCollection
+from aizynthfinder.utils.policy_augmentation import PolicyValues
 
 if TYPE_CHECKING:
     from aizynthfinder.utils.type_utils import Union, Any, Sequence, List, Tuple
@@ -42,6 +43,7 @@ class ExpansionPolicy(ContextCollection):
         super().__init__()
         self._config = config
         self._stock = config.stock
+        self._policy_values = config.policy_values
 
     def __call__(
         self, molecules: Sequence[TreeMolecule]
@@ -64,7 +66,9 @@ class ExpansionPolicy(ContextCollection):
         possible_actions = []
         priors = []
 
+        count_list = []
         for mol in molecules:
+            count = 0
             if mol in self._stock:
                 continue
 
@@ -77,32 +81,56 @@ class ExpansionPolicy(ContextCollection):
                 possible_moves = templates.iloc[probable_transforms_idx]
                 probs = all_transforms_prop[probable_transforms_idx]
 
+                #uses filename parameter to load dict from json. 
+                policy_dict = PolicyValues(self._policy_values).from_dict()
+
+                #loads reaction classes to a list
+                policy_templates = list(policy_dict.keys())
+                
+                
                 for idx, (move_index, move) in enumerate(possible_moves.iterrows()):
                     metadata = dict(move)
                     del metadata[self._config.template_column]
                     metadata["policy_probability"] = float(probs[idx].round(4))
                     metadata["policy_name"] = policy_key
                     metadata["template_code"] = move_index
+
+                    reaction_class = metadata.get('classification')
+
                     
+                    # augment policy probability if reaction class is in dict.
+                    if reaction_class in policy_templates:
+                        #print('REACTION CLASS: ', reaction_class)
+                        new_policy_value = policy_dict.get(reaction_class)
+                        probs[idx] = float(new_policy_value)
+                        metadata['policy_probability'] = new_policy_value
+                        #print('Altered policy for '+ reaction_class+ ' to '+str(new_policy_value)+'.')
+                        count+=1
                     
-                    # augment policy probability relative to reactions classification.
-                    if metadata.get('classification') == 'N-acylation to amide':
+                    '''if metadata.get('classification') == 'N-acylation to amide':
                         print('REACTION - N-ACYLATION TO AMIDE (before): ', probs[idx])
                         probs[idx] = float(0)
                         print('REACTION - N-ACYLATION TO AMIDE (after): ', probs[idx])
                         metadata['policy_probability'] = float(0)
                         retro = RetroReaction(mol, move[self._config.template_column], metadata=metadata)
-                        print('Reaction metadata: ', retro.metadata)
-                    
-
-
+                        print('Reaction metadata: ', retro.metadata)'''
+  
                     possible_actions.append(
                         RetroReaction(
                             mol, move[self._config.template_column], metadata=metadata
                         )
                     )
-
+            
+            
+            
                 priors.extend(probs)
+                
+            #print(str(count)+' reaction policies augmented for this molecule')
+            count_list.append(count)
+
+        #print(str(count_list)+' reaction policys have been editied.')
+
+
         return possible_actions, priors
 
     def load(self, source: Union[str, Any], templatefile: str, key: str) -> None:  # type: ignore

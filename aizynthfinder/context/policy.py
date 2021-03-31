@@ -100,6 +100,7 @@ class ExpansionPolicy(ContextCollection):
                     
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
+                        #print('REACTION CLASS: ', reaction_class)
                         new_policy_value = policy_dict.get(reaction_class)
                         probs[idx] = float(new_policy_value)
                         metadata['policy_probability'] = new_policy_value
@@ -124,10 +125,10 @@ class ExpansionPolicy(ContextCollection):
             
                 priors.extend(probs)
                 
-            print(str(count)+' reaction policies augmented for this molecule')
+            #print(str(count)+' reaction policies augmented for this molecule')
             count_list.append(count)
 
-        print(str(sum(count_list))+' reaction policys have been editied.')
+        #print(str(count_list)+' reaction policys have been editied.')
 
 
         return possible_actions, priors

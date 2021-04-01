@@ -100,11 +100,9 @@ class ExpansionPolicy(ContextCollection):
                     
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
-                        #print('REACTION CLASS: ', reaction_class)
-                        new_policy_value = policy_dict.get(reaction_class)
-                        probs[idx] = float(new_policy_value)
+                        new_policy_value = policy_dict.get(reaction_class)*probs[idx]
+                        probs[idx] = new_policy_value
                         metadata['policy_probability'] = new_policy_value
-                        #print('Altered policy for '+ reaction_class+ ' to '+str(new_policy_value)+'.')
                         count+=1
                     
                     '''if metadata.get('classification') == 'N-acylation to amide':
@@ -120,18 +118,38 @@ class ExpansionPolicy(ContextCollection):
                             mol, move[self._config.template_column], metadata=metadata
                         )
                     )
+                
             
-            
-            
+
                 priors.extend(probs)
+
+
                 
             #print(str(count)+' reaction policies augmented for this molecule')
             count_list.append(count)
 
         #print(str(count_list)+' reaction policys have been editied.')
 
+        
+        remove_idx = []
+        for i in range(len(priors)):
+            if priors[i] == 0:
+                remove_idx.append(i)
+        
+        new_possible_actions = []
+        new_priors = []
 
-        return possible_actions, priors
+        for i in range(len(possible_actions)):
+            if i not in remove_idx:
+                new_possible_actions.append(possible_actions[i])
+                new_priors.append(priors[i])
+
+        #print('LEN of actions: ', len(possible_actions))
+        #print('LEN of priors: ', len(priors))
+        #print('LEN of actions: ', len(new_possible_actions))
+        #print('LEN of priors: ', len(new_priors))
+
+        return new_possible_actions, new_priors
 
     def load(self, source: Union[str, Any], templatefile: str, key: str) -> None:  # type: ignore
         """

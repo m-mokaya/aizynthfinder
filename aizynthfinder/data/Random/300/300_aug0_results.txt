@@ -1,0 +1,53 @@
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/300/300_aug0_results.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,N-acylation to amide, 264, 0.1897, 1183.0
+2,Unassigned, 225, 0.0141, 48.0
+3,O-substitution, 147, 0.0518, 960.0
+4,Heteroaryl N-alkylation, 143, 0.0725, 974.0
+5,Suzuki coupling, 138, 0.0243, 598.0
+6,Other functional group interconversion, 118, 0.0277, 133.0
+7,N-arylation with Ar-X, 113, 0.0405, 519.0
+8,Reductive amination, 83, 0.126, 967.0
+9,Halogenation, 51, 0.0136, 528.0
+10,ROH deprotections, 31, 0.0728, 2058.0
+11,Other functional group addition, 31, 0.0046, 90.0
+12,NH deprotections, 28, 0.0105, 856.0
+13,N-containing heterocycle formation, 25, 0.0531, 42.0
+14,S-substitution, 25, 0.0297, 47.0
+15,RCO2H deprotections, 24, 0.2526, 3989.0
+16,Amide to amine reduction, 20, 0.0073, 1026.0
+17,N-acylation to urea, 20, 0.1593, 155.0
+18,O-acylation to ester, 20, 0.0876, 1330.0
+19,Oxidations at sulfur, 19, 0.1933, 28.0
+20,Alkene to alkane, 11, 0.0105, 77.0
+21,Other organometallic C-C bond formation, 11, 0.0081, 51.0
+22,N-substitution with alkyl-X, 9, 0.0042, 59.0
+23,Other C-C bond formation, 9, 0.0887, 33.0
+24,Heck reaction, 8, 0.0144, 109.0
+25,Nitrile to acid, 8, 0.0068, 367.0
+26,N-sulfonylation, 8, 0.1239, 760.0
+27,Sonogashira reaction, 7, 0.7362, 1017.0
+28,O-containing heterocycle formation, 6, 0.0011, 22.0
+29,Alcohols to aldehydes, 6, 0.0248, 365.0
+30,Friedel-Crafts reaction, 5, 0.0749, 194.0
+31,Alkyne to alkane, 5, 0.0076, 200.0
+32,Carbamate/carbonate formation, 5, 0.0309, 171.0
+33,Other reductions, 4, 0.0145, 137.0
+34,Dehydration, 4, 0.0573, 8.0
+35,S-containing heterocycle formation, 4, 0.0018, 20.0
+36,Other oxidations, 3, 0.2261, 179.0
+37,Ketone to alcohol, 3, 0.183, 1483.0
+38,Nitro to amine reduction, 2, 0.1149, 11957.0
+39,Alcohols to acids, 2, 0.0027, 190.0
+40,Ester to alcohol, 1, 0.0787, 2011.0
+41,Stille reaction, 1, 0.002, 15.0
+42,Cyano or imine to amine, 1, 0.4522, 1120.0
+43,Alcohol to halide, 1, 0.0155, 121.0
+44,NH protections, 1, 0.0424, 1434.0
+
+
+policy: 0.21420312071057696
+Cost: 99.61497772173448
+Num Reactions: 4.041212121212121
+Target Lib cost: 99.61497772173448

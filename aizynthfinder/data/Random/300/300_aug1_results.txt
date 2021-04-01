@@ -1,0 +1,52 @@
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/300/300_aug1_results.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,N-acylation to amide, 268, 0.0, 1187.0
+2,Unassigned, 228, 0.015, 47.0
+3,Suzuki coupling, 120, 0.0309, 607.0
+4,Heteroaryl N-alkylation, 116, 0.0751, 979.0
+5,O-substitution, 114, 0.0606, 1013.0
+6,N-arylation with Ar-X, 107, 0.0393, 477.0
+7,Other functional group interconversion, 97, 0.0326, 145.0
+8,Reductive amination, 66, 0.056, 974.0
+9,Halogenation, 48, 0.0327, 566.0
+10,ROH deprotections, 33, 0.0674, 2391.0
+11,NH deprotections, 32, 0.0103, 710.0
+12,Other functional group addition, 28, 0.005, 85.0
+13,N-containing heterocycle formation, 27, 0.0496, 36.0
+14,S-substitution, 25, 0.0298, 74.0
+15,Other organometallic C-C bond formation, 23, 0.0037, 47.0
+16,N-acylation to urea, 23, 0.1395, 182.0
+17,Oxidations at sulfur, 22, 0.3354, 15.0
+18,RCO2H deprotections, 21, 0.2907, 5315.0
+19,N-sulfonylation, 17, 0.0678, 817.0
+20,O-acylation to ester, 16, 0.1016, 1325.0
+21,Amide to amine reduction, 13, 0.0195, 1578.0
+22,N-substitution with alkyl-X, 13, 0.0052, 80.0
+23,Sonogashira reaction, 12, 0.5346, 992.0
+24,Alkene to alkane, 11, 0.0101, 61.0
+25,Other C-C bond formation, 10, 0.08, 31.0
+26,Heck reaction, 8, 0.0144, 109.0
+27,Alcohols to aldehydes, 6, 0.0248, 365.0
+28,Other reductions, 5, 0.0116, 198.0
+29,O-containing heterocycle formation, 5, 0.0012, 26.0
+30,Alkyne to alkane, 5, 0.0076, 137.0
+31,Carbamate/carbonate formation, 5, 0.0309, 171.0
+32,S-containing heterocycle formation, 5, 0.0002, 24.0
+33,Other oxidations, 4, 0.1704, 195.0
+34,Nitrile to acid, 4, 0.0071, 267.0
+35,Friedel-Crafts reaction, 3, 0.0003, 371.0
+36,Ketone to alcohol, 3, 0.1535, 1483.0
+37,Dehydration, 3, 0.0573, 8.0
+38,Cyano or imine to amine, 2, 0.2262, 584.0
+39,Other Pd-catalyzed reactions (Negishi,Kumada,etc.), 2, 0.0041, 70.0
+40,Alcohols to acids, 2, 0.0027, 190.0
+41,Ester to alcohol, 1, 0.0787, 2011.0
+42,Nitro to amine reduction, 1, 0.0392, 11957.0
+43,Alcohol to halide, 1, 0.0155, 121.0
+
+
+policy: 0.17526638237039266
+Cost: 107.26910687872835
+Num Reactions: 4.253376205787782
+Target Lib cost: 107.26910687872835

@@ -86,7 +86,7 @@ class Configuration:
         :param source: the dictionary source
         :return: a Configuration object with settings from the source
         """
-        config_obj = Configuration()
+        #config_obj = Configuration()
         config_obj._update_from_config(source)
 
         config_obj.expansion_policy.load_from_config(
@@ -110,6 +110,7 @@ class Configuration:
         :param filename: the path to a yaml file
         :return: a Configuration object with settings from the yaml file
         """
+
         with open(filename, "r") as fileobj:
             _config = yaml.load(fileobj.read(), Loader=yaml.SafeLoader)
         return Configuration.from_dict(_config)

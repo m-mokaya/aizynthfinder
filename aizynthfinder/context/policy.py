@@ -144,10 +144,10 @@ class ExpansionPolicy(ContextCollection):
                 new_possible_actions.append(possible_actions[i])
                 new_priors.append(priors[i])
 
-        #print('LEN of actions: ', len(possible_actions))
-        #print('LEN of priors: ', len(priors))
-        #print('LEN of actions: ', len(new_possible_actions))
-        #print('LEN of priors: ', len(new_priors))
+        print('LEN of actions: ', len(possible_actions))
+        print('LEN of priors: ', len(priors))
+        print('LEN of actions: ', len(new_possible_actions))
+        print('LEN of priors: ', len(new_priors))
 
         return new_possible_actions, new_priors
 

@@ -110,6 +110,7 @@ class Configuration:
         :param filename: the path to a yaml file
         :return: a Configuration object with settings from the yaml file
         """
+        
         with open(filename, "r") as fileobj:
             _config = yaml.load(fileobj.read(), Loader=yaml.SafeLoader)
         return Configuration.from_dict(_config)

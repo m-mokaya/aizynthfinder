@@ -86,7 +86,7 @@ class ExpansionPolicy(ContextCollection):
 
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())
-                
+                print(str(policy_templates))
                 
                 for idx, (move_index, move) in enumerate(possible_moves.iterrows()):
                     metadata = dict(move)

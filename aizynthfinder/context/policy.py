@@ -128,7 +128,7 @@ class ExpansionPolicy(ContextCollection):
             #print(str(count)+' reaction policies augmented for this molecule')
             count_list.append(count)
 
-        #print(str(count_list)+' reaction policys have been editied.')
+        print(str(count_list)+' reaction policys have been editied.')
 
         
         remove_idx = []

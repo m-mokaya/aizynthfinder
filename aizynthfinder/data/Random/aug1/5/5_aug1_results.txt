@@ -1,0 +1,44 @@
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/5/5_aug1_results.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,Unassigned, 7, 0.0002, 89.0
+2,O-substitution, 6, 0.0476, 81.0
+3,Other functional group interconversion, 5, 0.0477, 299.0
+4,Reductive amination, 2, 0.1793, 1667.0
+5,Heteroaryl N-alkylation, 1, 0.0006, 59.0
+6,Other reductions, 1, 0.0002, 439.0
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/5/5_aug1_results.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,Unassigned, 7, 0.0002, 89.0
+2,O-substitution, 6, 0.0476, 81.0
+3,Other functional group interconversion, 5, 0.0477, 299.0
+4,Reductive amination, 2, 0.1793, 1667.0
+5,Heteroaryl N-alkylation, 1, 0.0006, 59.0
+6,Other reductions, 1, 0.0002, 439.0
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/5/5_aug1_results.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,Unassigned, 7, 0.0002, 89.0
+2,O-substitution, 6, 0.0476, 81.0
+3,Other functional group interconversion, 5, 0.0477, 299.0
+4,Reductive amination, 2, 0.1793, 1667.0
+5,Heteroaryl N-alkylation, 1, 0.0006, 59.0
+6,Other reductions, 1, 0.0002, 439.0
+
+
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/5/5_aug1_results.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,Unassigned, 7, 0.0002, 89.0
+2,O-substitution, 6, 0.0476, 81.0
+3,Other functional group interconversion, 5, 0.0477, 299.0
+4,Reductive amination, 2, 0.1793, 1667.0
+5,Heteroaryl N-alkylation, 1, 0.0006, 59.0
+6,Other reductions, 1, 0.0002, 439.0
+
+
+policy: 0.13239469735774698
+Cost: 37.28551136363637
+Num Reactions: 2.1363636363636362
+Target Lib cost: 37.28551136363637

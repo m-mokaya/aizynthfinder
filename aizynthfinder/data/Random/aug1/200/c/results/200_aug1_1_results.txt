@@ -1,0 +1,38 @@
+/nResults file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/200/c/results/nResults file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/200/c/results/nResults file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/200/c/results/n/nTrue: 56.666666666666664/nFalse: 43.333333333333336
+
+Rank, Reaction, Frequency, Policy, Literature
+1,Unassigned, 57, 0.0192, 38.0
+2,O-substitution, 53, 0.0246, 591.0
+3,Heteroaryl N-alkylation, 50, 0.0554, 578.0
+4,Reductive amination, 39, 0.1595, 713.0
+5,N-arylation with Ar-X, 35, 0.0693, 725.0
+6,Other functional group interconversion, 34, 0.0157, 180.0
+7,RCO2H deprotections, 26, 0.0698, 943.0
+8,Suzuki coupling, 21, 0.0195, 427.0
+9,Other functional group addition, 16, 0.0143, 113.0
+10,Halogenation, 16, 0.0128, 751.0
+11,S-substitution, 14, 0.0626, 15.0
+12,N-sulfonylation, 14, 0.2076, 931.0
+13,NH deprotections, 10, 0.0161, 2449.0
+14,Amide to amine reduction, 9, 0.0099, 1305.0
+15,Oxidations at sulfur, 7, 0.2992, 56.0
+16,Other C-C bond formation, 7, 0.0156, 21.0
+17,ROH deprotections, 6, 0.0498, 2995.0
+18,N-containing heterocycle formation, 6, 0.0775, 59.0
+19,Alkyne to alkane, 3, 0.0279, 68.0
+20,N-substitution with alkyl-X, 3, 0.0012, 128.0
+21,Other reductions, 3, 0.0042, 311.0
+22,N-acylation to urea, 3, 0.2987, 242.0
+23,Oxidations at nitrogen, 3, 0.1867, 359.0
+24,Dehydration, 2, 0.0024, 240.0
+25,Other oxidations, 2, 0.0043, 147.0
+26,Ketone to alcohol, 2, 0.0067, 1099.0
+27,O-containing heterocycle formation, 2, 0.0002, 20.0
+28,Amidine formation, 1, 0.5806, 7.0
+29,Alcohol to halide, 1, 0.0013, 9.0
+
+
+policy: 0.17857376011980242
+Cost: 197.22893058915696
+Num Reactions: 5.316853932584269
+Target Lib cost: 197.22893058915696

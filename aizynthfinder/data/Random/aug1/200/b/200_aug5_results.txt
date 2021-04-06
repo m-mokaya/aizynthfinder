@@ -1,0 +1,129 @@
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/200/200_aug5_results.hdf5
+
+True: 53.0
+False: 47.0
+
+Rank, Reaction, Frequency, Policy, Literature
+1,N-acylation to amide, 166, 0.1553, 773.0
+2,O-substitution, 129, 0.054, 551.0
+3,Unassigned, 125, 0.0311, 74.0
+4,Other functional group interconversion, 105, 0.0048, 144.0
+5,Heteroaryl N-alkylation, 79, 0.1013, 1007.0
+6,Reductive amination, 74, 0.0928, 834.0
+7,Suzuki coupling, 49, 0.0583, 506.0
+8,Halogenation, 37, 0.0066, 710.0
+9,Oxidations at sulfur, 24, 0.3614, 43.0
+10,Other functional group addition, 23, 0.0111, 120.0
+11,N-acylation to urea, 19, 0.0999, 561.0
+12,Amide to amine reduction, 16, 0.0428, 792.0
+13,S-substitution, 16, 0.0626, 52.0
+14,N-sulfonylation, 14, 0.2549, 940.0
+15,RCO2H deprotections, 13, 0.0489, 4165.0
+16,ROH deprotections, 11, 0.1291, 2967.0
+17,NH deprotections, 10, 0.0174, 3675.0
+18,N-containing heterocycle formation, 9, 0.0536, 86.0
+19,Alkene to alkane, 7, 0.0024, 139.0
+20,Other reductions, 6, 0.0028, 375.0
+21,Other C-C bond formation, 6, 0.0006, 6.0
+22,Cyano or imine to amine, 5, 0.003, 8.0
+23,Sonogashira reaction, 5, 0.0014, 326.0
+24,Alkyne to alkane, 3, 0.0279, 68.0
+25,Other oxidations, 3, 0.003, 131.0
+26,Oxidations at nitrogen, 3, 0.1867, 359.0
+27,Amidine formation, 3, 0.5806, 7.0
+28,O-acylation to ester, 2, 0.0007, 3072.0
+29,Ketone to alcohol, 2, 0.0067, 1099.0
+30,O-containing heterocycle formation, 2, 0.0002, 20.0
+31,Alcohol to halide, 2, 0.0151, 147.0
+32,N-substitution with alkyl-X, 2, 0.0011, 77.0
+33,Heck reaction, 2, 0.0004, 248.0
+34,Stille reaction, 1, 0.0044, 28.0
+35,Friedel-Crafts reaction, 1, 0.0087, 72.0
+36,Alcohols to aldehydes, 1, 0.0049, 12.0
+37,Dehydration, 1, 0.0044, 240.0
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/200/200_aug5_results.hdf5True: 53.0False: 47.0
+
+Rank, Reaction, Frequency, Policy, Literature
+1,N-acylation to amide, 166, 0.1553, 773.0
+2,O-substitution, 129, 0.054, 551.0
+3,Unassigned, 125, 0.0311, 74.0
+4,Other functional group interconversion, 105, 0.0048, 144.0
+5,Heteroaryl N-alkylation, 79, 0.1013, 1007.0
+6,Reductive amination, 74, 0.0928, 834.0
+7,Suzuki coupling, 49, 0.0583, 506.0
+8,Halogenation, 37, 0.0066, 710.0
+9,Oxidations at sulfur, 24, 0.3614, 43.0
+10,Other functional group addition, 23, 0.0111, 120.0
+11,N-acylation to urea, 19, 0.0999, 561.0
+12,Amide to amine reduction, 16, 0.0428, 792.0
+13,S-substitution, 16, 0.0626, 52.0
+14,N-sulfonylation, 14, 0.2549, 940.0
+15,RCO2H deprotections, 13, 0.0489, 4165.0
+16,ROH deprotections, 11, 0.1291, 2967.0
+17,NH deprotections, 10, 0.0174, 3675.0
+18,N-containing heterocycle formation, 9, 0.0536, 86.0
+19,Alkene to alkane, 7, 0.0024, 139.0
+20,Other reductions, 6, 0.0028, 375.0
+21,Other C-C bond formation, 6, 0.0006, 6.0
+22,Cyano or imine to amine, 5, 0.003, 8.0
+23,Sonogashira reaction, 5, 0.0014, 326.0
+24,Alkyne to alkane, 3, 0.0279, 68.0
+25,Other oxidations, 3, 0.003, 131.0
+26,Oxidations at nitrogen, 3, 0.1867, 359.0
+27,Amidine formation, 3, 0.5806, 7.0
+28,O-acylation to ester, 2, 0.0007, 3072.0
+29,Ketone to alcohol, 2, 0.0067, 1099.0
+30,O-containing heterocycle formation, 2, 0.0002, 20.0
+31,Alcohol to halide, 2, 0.0151, 147.0
+32,N-substitution with alkyl-X, 2, 0.0011, 77.0
+33,Heck reaction, 2, 0.0004, 248.0
+34,Stille reaction, 1, 0.0044, 28.0
+35,Friedel-Crafts reaction, 1, 0.0087, 72.0
+36,Alcohols to aldehydes, 1, 0.0049, 12.0
+37,Dehydration, 1, 0.0044, 240.0
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/200/200_aug5_results.hdf5True: 53.0False: 47.0
+
+Rank, Reaction, Frequency, Policy, Literature
+1,N-acylation to amide, 166, 0.1553, 773.0
+2,O-substitution, 129, 0.054, 551.0
+3,Unassigned, 125, 0.0311, 74.0
+4,Other functional group interconversion, 105, 0.0048, 144.0
+5,Heteroaryl N-alkylation, 79, 0.1013, 1007.0
+6,Reductive amination, 74, 0.0928, 834.0
+7,Suzuki coupling, 49, 0.0583, 506.0
+8,Halogenation, 37, 0.0066, 710.0
+9,Oxidations at sulfur, 24, 0.3614, 43.0
+10,Other functional group addition, 23, 0.0111, 120.0
+11,N-acylation to urea, 19, 0.0999, 561.0
+12,Amide to amine reduction, 16, 0.0428, 792.0
+13,S-substitution, 16, 0.0626, 52.0
+14,N-sulfonylation, 14, 0.2549, 940.0
+15,RCO2H deprotections, 13, 0.0489, 4165.0
+16,ROH deprotections, 11, 0.1291, 2967.0
+17,NH deprotections, 10, 0.0174, 3675.0
+18,N-containing heterocycle formation, 9, 0.0536, 86.0
+19,Alkene to alkane, 7, 0.0024, 139.0
+20,Other reductions, 6, 0.0028, 375.0
+21,Other C-C bond formation, 6, 0.0006, 6.0
+22,Cyano or imine to amine, 5, 0.003, 8.0
+23,Sonogashira reaction, 5, 0.0014, 326.0
+24,Alkyne to alkane, 3, 0.0279, 68.0
+25,Other oxidations, 3, 0.003, 131.0
+26,Oxidations at nitrogen, 3, 0.1867, 359.0
+27,Amidine formation, 3, 0.5806, 7.0
+28,O-acylation to ester, 2, 0.0007, 3072.0
+29,Ketone to alcohol, 2, 0.0067, 1099.0
+30,O-containing heterocycle formation, 2, 0.0002, 20.0
+31,Alcohol to halide, 2, 0.0151, 147.0
+32,N-substitution with alkyl-X, 2, 0.0011, 77.0
+33,Heck reaction, 2, 0.0004, 248.0
+34,Stille reaction, 1, 0.0044, 28.0
+35,Friedel-Crafts reaction, 1, 0.0087, 72.0
+36,Alcohols to aldehydes, 1, 0.0049, 12.0
+37,Dehydration, 1, 0.0044, 240.0
+
+
+policy: 0.2281286372928169
+Cost: 115.80141757878658
+Num Reactions: 4.309426229508197
+Target Lib cost: 115.80141757878658

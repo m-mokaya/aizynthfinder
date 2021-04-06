@@ -1,0 +1,10 @@
+COC(c1ccon1)c1ccccc1COc1cc(C)ccc1C
+O=C(C=Cc1ccc(C(F)(F)F)cc1)NCCCCCN1CCCN(C(=O)Nc2ccc(F)c(Cl)c2)CC1
+O=C(NC(=O)c1ccccc1)Nc1cccc(C2CN3CCSC3=N2)c1
+CCN(CC)S(=O)(=O)c1ccc(OC)c(NC(=O)c2cc([N+](=O)[O-])ccc2Cl)c1
+CNC(=O)C(NC(=O)C(c1ccc(OC)cc1)C(CN1C(=O)N(C)C(C)(C)C1=O)C(=O)NO)C(C)(C)C
+CCC(C)C1NC(=O)C(NC(=O)C(CO)NC(=O)C(N)CCCNC(=N)N)CSSCC(C(=O)O)NC(=O)C(Cc2cccc3ccccc23)NC(=O)CNC(=O)C2CSSCC3NC(=O)C(CCC(N)=O)NC(=O)C(Cc4ccccc4)NC(=O)C(C)NC(=O)C(C(C)O)NC(=O)C(CSSCC(NC(=O)C(Cc4ccccc4)NC(=O)C(CO)NC(=O)C(CC(C)C)NC(=O)C(CCCNC(=N)N)NC(=O)C(Cc4ccc(O)cc4)NC(=O)C(CCCCN)NC(=O)C(CCSC)NC(=O)C(CO)NC(=O)C(Cc4cnc[nH]4)NC(=O)C(CCCCN)NC3=O)C(=O)NC(CCCNC(=N)N)C(=O)NC(CCCCN)C(=O)NC(C(C)O)C(=O)N2)NC(=O)C(CCCNC(=N)N)NC(=O)C(CO)NC(=O)C(CCCCN)NC(=O)C2CCCN2C(=O)C(C(C)CC)NC(=O)C(C(C)O)NC(=O)C(CC(=O)O)NC1=O
+Cc1c(C(=O)NN2CCCCC2)nn(-c2ccccc2)c1-c1ccccc1
+CCn1c2ccccc2c2cc(-c3nc4cncnc4[nH]3)ccc21
+C=C(C(=O)c1cccs1)c1ccccc1
+CC(=O)OC1C(C)OC(OC2C(OCC=C(C)CCC=C(C)CCC=C(C)CCC=C(C)C)OC(CO)C(O)C2O)C(OC(C)=O)C1OC(C)=O

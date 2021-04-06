@@ -1,0 +1,10 @@
+COC(=O)C1=C(C)N=C(C)N(CCCCCN2CCC(c3ccccc3)(c3ccccc3)CC2)C1c1ccc(F)c(F)c1
+O=C1C(=O)N(Cc2ccc(Oc3ccccc3)cc2)c2ccc(OC(F)(F)F)cc21
+c1ccc2ncc(CNCCCCCCNCCSSCCNCCCCCCNCc3cnc4ccccc4c3)cc2c1
+CCc1ccc2c(c1)C1CCNC(Cc3cccc4ccccc34)C1N2
+COC(c1ccc(F)cc1)(c1ccc(C(=O)NCCCCCCC(=O)NO)cc1)C(F)(F)F
+O=C(Cc1ccccn1)N1CCC2(CC1)C(O)CC2O
+CN1CCN(C(=O)N(c2ccccc2)c2ccccc2)CC1
+COc1cc2c(Oc3ccc(NC(=O)c4nn(-c5cccc(C(F)(F)F)c5)c5ccccc5c4=O)cc3F)ccnc2cc1OCCCN1CCCC1
+COc1ccc(CNCc2nnc3n2CC(C(F)(F)F)CC3)cc1
+COC(=O)c1ccc(Oc2c(Cl)cccc2[N+](=O)[O-])cc1

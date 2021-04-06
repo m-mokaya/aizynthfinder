@@ -305,7 +305,12 @@ class Node:
         return np.array(self._children_values) / np.array(self._children_visitations)
 
     def _children_u(self) -> np.ndarray:
-        total_visits = np.log(np.sum(self._children_visitations))
+        #fixes error: RuntimeWarning: divide by zero encountered in log
+        if np.sum(self._children_visitations) == 0:
+            total_visits = np.log(1)
+        else:
+            total_visits = np.log(np.sum(self._children_visitations))
+        #total_visits = np.log(np.sum(self._children_visitations))
         child_visits = np.array(self._children_visitations)
         return self._config.C * np.sqrt(2 * total_visits / child_visits)
 

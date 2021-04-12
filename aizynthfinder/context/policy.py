@@ -101,7 +101,9 @@ class ExpansionPolicy(ContextCollection):
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
                         new_policy_value = policy_dict.get(reaction_class)*probs[idx]
+                        print('Before prior: ', probs[idx])
                         probs[idx] = new_policy_value
+                        print('Afterprior: ', probs[idx])
                         metadata['policy_probability'] = new_policy_value
                         count+=1
                     
@@ -149,7 +151,7 @@ class ExpansionPolicy(ContextCollection):
         #print('LEN of actions: ', len(new_possible_actions))
         #print('LEN of priors: ', len(new_priors))
 
-        return new_possible_actions, new_priors
+        return possible_actions, priors
 
     def load(self, source: Union[str, Any], templatefile: str, key: str) -> None:  # type: ignore
         """

@@ -4,17 +4,10 @@ properties:
   return_first: false
   time_limit: 300
   C: 1.4
-<<<<<<< HEAD
   cutoff_cumulative: 0.995
   cutoff_number: 50
   max_transforms: 15
   policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/Random/PolicyDicts/opt2.json'
-=======
-  cutoff_cumulative: 2.00
-  cutoff_number: 100
-  max_transforms: 30
-  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/Random/PolicyDicts/aug0.json'
->>>>>>> 4a5e84dc1cb3eb439f31f4ae7520ef9316e40f0a
 policy:
   files:
     uspto:

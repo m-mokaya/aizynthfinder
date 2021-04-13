@@ -1,8 +1,8 @@
 properties:
   use_prior: True
-  iteration_limit: 150
+  iteration_limit: 200
   return_first: false
-  time_limit: 300
+  time_limit: 500
   C: 1.4
   cutoff_cumulative: 0.995
   cutoff_number: 50

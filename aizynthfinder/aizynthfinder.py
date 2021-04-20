@@ -242,6 +242,11 @@ class AiZynthFinder:
             "exclude_target_from_stock": self.config.exclude_target_from_stock,
             "filter_cutoff": self.config.filter_cutoff,
         }
+
+        #print parameters to check correct config file
+        print('Parameters:')
+        print(dict_)
+
         if self.filter_policy.selection:
             dict_["filter"] = self.filter_policy.selection
         return dict_

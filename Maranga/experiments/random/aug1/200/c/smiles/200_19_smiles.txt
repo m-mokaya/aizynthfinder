@@ -1,0 +1,10 @@
+O=C(C=Cc1ccc(-n2ccnc2)cc1)c1ccc(Oc2ccc(C(F)(F)F)cc2[N+](=O)[O-])cc1
+Cc1cc(C(O)CN2CCN(CC(O)c3ccc4c(c3C)COC4=O)CC2)ncc1C#N
+Cc1ccccc1C1CC2CCC(C1)N2C(=O)C(Cc1c[nH]c2ccccc12)NC(=O)C(C)(C)N
+CC(C)Cc1noc(CN2CCOCC2C)n1
+CC1(C)OC2C(CNCCNc3ccccn3)OC(CC(=O)NCCc3c[nH]c4ccccc34)C2O1
+NC1=NC(=O)NC1(c1ccccc1)c1ccccc1
+CC1CCCC(C)N1S(=O)(=O)c1ccc(NC(=O)CCN2C(=O)C3CC=CCC3C2=O)cc1
+c1ccc(OCCCCCCCCNc2ccnc3ccccc23)c(Nc2c3ccccc3nc3ccccc23)c1
+CC(=NNC(=S)NNC(=O)c1cccnc1)c1ccc(Br)cc1
+CCCCCNC(=O)c1cc2c(=O)n3ccccc3nc2n1C

@@ -5,6 +5,7 @@ sys.path.append('../../')
 
 import pandas as pd
 import numpy as np
+import json
 
 from rdkit.Chem import rdChemReactions
 
@@ -15,6 +16,18 @@ from aizynthfinder.mcts.state import State
 from aizynthfinder.chem import TreeMolecule
 from aizynthfinder.context.collection import ContextCollection
 from aizynthfinder.context.stock import StockException
+import aizynthfinder.context.scoring as scoring
+
+import aizynthfinder.context.config as con
+
+#read in .json file => 
+def read_json(filename):
+    with open(filename, 'r') as input:
+        data = json.load(input)
+    reaction_trees = data['reaction trees']
+
+    json_reaction_trees = [json.loads(i) for i in reaction_trees]
+    return json_reaction_trees
 
 #read in hdf file from aizynthfinder output
 def read_hdf(filename):
@@ -23,13 +36,17 @@ def read_hdf(filename):
 
 #return dataframe only contained solved molecules
 def collect_solved(data_df):
-    solved_data = data_df.loc[(data_df.solved==True)]
+    solved_data = data_df.loc[(data_df.is_solved==True)]
     return solved_data
 
 #collect trees from dataframe (returns a list of dicts)
 def collect_trees(data_df):
     trees = data_df.trees.values
     return trees
+
+def collect_scores(data_df):
+    top_scores = data_df.top_scores.values
+    return top_scores
 
 #pull out list of smarts for each reaction
 def collect_smarts(tree_dict):
@@ -58,6 +75,62 @@ def remove_non_smarts(smiles_list):
 #generate reactions
 def generate_rxns(rxn):
     return rdChemReactions.ReactionFromSmarts(rxn)
+
+
+def generate_solved_dicts_from_hdf(filename):
+    data = read_hdf(filename)
+    solved_data = collect_solved(data)
+    solved_trees = collect_trees(solved_data)
+
+    dict_list  = []
+    for i in solved_trees:
+        for itree, tree in enumerate(i):
+            solved_reaction = ReactionTree.from_dict(tree)
+            dict_list.append(solved_reaction)
+    return dict_list
+
+def dict_list_to_json(dict_list, filename):
+    json_list = [dict_list[i].to_json() for i in dict_list]
+
+    output = {
+        'reaction trees': json_list
+    }
+    
+    with open(filename, 'w') as outfile:
+        json.dump(output, outfile)
+
+    return json_list
+
+def generate_images_from_hdf(filname, output_folder):
+    dict_list = generate_solved_dicts_from_hdf(filname)
+    try:
+        for i, tree in enumerate(dict_list):
+            imagefile = os.path.join(output_folder, 'route_'+str(i)+'.png')
+            tree.to_image().save(imagefile)
+        return True
+    except:
+        print('Error saving images')
+        return False
+
+def calculate_cost_from_trees(tree_list, configfile):
+    #initalise config 
+    config = con.Configuration()
+    config = config.from_file(configfile)
+
+    policy_scorer = scoring.USPTOModelPolicyProbabilityScorer()
+    cost_scorer = scoring.PriceSumScorer(config=config)
+
+    scores = []
+    for ind, i in enumerate(tree_list):
+        tree = ReactionTree.from_dict(i)
+        cost = cost_scorer(tree)
+        policy = policy_scorer(tree)
+        scores.append(cost/policy)
+        print(ind)
+
+    #scores = [cost_scorer(ReactionTree.from_dict(i))/policy_scorer(ReactionTree.from_dict(i)) for i in tree_list]
+    return scores
+
 
 
 

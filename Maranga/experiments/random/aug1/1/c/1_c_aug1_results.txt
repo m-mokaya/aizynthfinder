@@ -1,0 +1,13 @@
+Results file for: ../AiZynthFinder/aizynthfinder/data/Random/aug1/1/1_c_aug1.hdf5
+
+Rank, Reaction, Frequency, Policy, Literature
+1,O-substitution, 6, 0.0, 81.0
+2,Other functional group interconversion, 3, 0.0793, 490.0
+3,Reductive amination, 2, 0.1793, 1667.0
+4,Heteroaryl N-alkylation, 1, 0.0006, 59.0
+
+
+policy: 0.17276250083038272
+Cost: 37.875
+Num Reactions: 1.75
+Target Lib cost: 37.875

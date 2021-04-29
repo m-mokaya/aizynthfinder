@@ -1,0 +1,10 @@
+COc1ccnc2c1C(=O)c1ncc(OC)c3ccnc-2c13
+O=S(=O)(NCC(c1ccccc1)N1CCCCCC1)c1ccccc1
+O=C(Nc1cccc(NC(=O)c2cccc(Br)c2)c1)c1cccc(Br)c1
+CCCCn1c2ccc(N)cc2c2c3c(c4c(c21)CCc1nn(C)cc1-4)C(=O)NC3
+COCCn1c(-c2ccc(C(C)C)cc2)nc2c(Br)c(Cc3cccnc3)cc(OC)c21
+COc1ccc(S(=O)(=O)N(Cc2cccnc2)c2c(C(=O)NO)cnc3c(-c4ccccc4)cccc23)cc1
+O=C(NC(=O)c1ccccc1[N+](=O)[O-])Nc1ccc(S(=O)c2ncc(Br)cn2)cc1
+CC(=O)NS(=O)(=O)c1ccc2nc(-c3ccccc3)c(-c3ccccc3)nc2c1
+COC(=O)CC1CN(S(=O)(=O)c2cc3ccc(Cl)cc3s2)CCN1C(=O)c1ccc(C2=NCCN2C)cc1
+COc1ccc(N2CCN(C(c3ccccc3OC)c3nnnn3Cc3ccco3)CC2)cc1

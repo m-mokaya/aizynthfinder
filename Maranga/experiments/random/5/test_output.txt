@@ -1,0 +1,13 @@
+Results file for: /data/localhost/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/Random/5/5_d12_smiles_output_2.hdf5Rank, Reaction, Frequency, Policy, Literature/n1,N-acylation to amide, 7, 0.0, 2306.0/n2,Other functional group interconversion, 4, 0.0013, 98.0/n3,O-substitution, 3, 0.0514, 535.0/n4,Halogenation, 2, 0.0008, 176.0/n5,N-arylation with Ar-X, 1, 0.6647, 1306.0/n6,NH deprotections, 1, 0.0028, 7879.0/n7,Unassigned, 1, 0.0021, 14.0/n8,Other reductions, 1, 0.0379, 439.0/nResults file for: /data/localhost/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/Random/5/5_d12_smiles_output_2.hdf5Rank, Reaction, Frequency, Policy, Literature/n1,N-acylation to amide, 7, 0.0, 2306.0/n2,Other functional group interconversion, 4, 0.0013, 98.0/n3,O-substitution, 3, 0.0514, 535.0/n4,Halogenation, 2, 0.0008, 176.0/n5,N-arylation with Ar-X, 1, 0.6647, 1306.0/n6,NH deprotections, 1, 0.0028, 7879.0/n7,Unassigned, 1, 0.0021, 14.0/n8,Other reductions, 1, 0.0379, 439.0/npolicy: 0.2923347154076814/nResults file for: /data/localhost/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/Random/5/5_d12_smiles_output_2.hdf5Rank, Reaction, Frequency, Policy, Literature/n1,N-acylation to amide, 7, 0.0, 2306.0/n2,Other functional group interconversion, 4, 0.0013, 98.0/n3,O-substitution, 3, 0.0514, 535.0/n4,Halogenation, 2, 0.0008, 176.0/n5,N-arylation with Ar-X, 1, 0.6647, 1306.0/n6,NH deprotections, 1, 0.0028, 7879.0/n7,Unassigned, 1, 0.0021, 14.0/n8,Other reductions, 1, 0.0379, 439.0/npolicy: 0.2923347154076814/nCost: 276.3582649230957/nNum Reactions: 8.6/nTarget Lib cost: 276.3582649230957/nResults file for: /data/localhost/not-backed-up/mokaya/exscientia/Retro/AiZynthFinder/aizynthfinder/data/Random/5/5_d12_smiles_output_2.hdf5Rank, Reaction, Frequency, Policy, Literature
+1,N-acylation to amide, 7, 0.0, 2306.0
+2,Other functional group interconversion, 4, 0.0013, 98.0
+3,O-substitution, 3, 0.0514, 535.0
+4,Halogenation, 2, 0.0008, 176.0
+5,N-arylation with Ar-X, 1, 0.6647, 1306.0
+6,NH deprotections, 1, 0.0028, 7879.0
+7,Unassigned, 1, 0.0021, 14.0
+8,Other reductions, 1, 0.0379, 439.0
+policy: 0.2923347154076814
+Cost: 276.3582649230957
+Num Reactions: 8.6
+Target Lib cost: 276.3582649230957

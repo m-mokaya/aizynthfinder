@@ -18,7 +18,7 @@ from rdkit.Chem import rdChemReactions
 from rdkit import DataStructs
 from rdkit.ML.Cluster import Butina
 from sklearn.metrics.pairwise import euclidean_distances
-
+from scipy.spatial.distance import euclidean
 
 #import file from either hdf file or json file
 parser = argparse.ArgumentParser()
@@ -36,6 +36,7 @@ def parse_input(input):
         return input
     else:
         return mutils.read_json(input)
+
 
 def parse_multi(input):
     data = mutils.read_hdf(input)
@@ -55,12 +56,31 @@ def parse_multi(input):
     return mols
 
 
+def get_top_scores(input):
+    data = mutils.read_hdf(input)
+
+    solved_data = data.loc[(data.is_solved==True)]
+
+    top_scores = solved_data.top_scores.values
+    topscore = solved_data.top_score.values
+
+    all = []
+    for i in top_scores:
+        new = [float(s) for s in i.split(',')]
+        all.append(new)
+
+
+    means = [np.mean(i) for i in all]
+
+    return  topscore 
+
+
 #calculates the state score for each reaction
 def collect_states_scores(data, conf):
     config = con.Configuration().from_file(conf)
     state_scorer = scoring.StateScorer(config=config)
-    rxns = [ReactionTree.from_dict(tree) for tree in data]
-    all_scores  = state_scorer(rxns)
+    #rxns = [ReactionTree.from_dict(tree) for tree in data]
+    all_scores = state_scorer(data)
     return all_scores
 
 
@@ -93,7 +113,7 @@ def generate_fingerprints(data):
     return fingerprints, all_fingerprints
 
 
-#clusters fingerprints given user defined cutoff => 
+#clusters fingerprints given user defined cutoff => list of clusters : [[cluster 1 indexes], [cluster 2 indexes]]
 def cluster_reactions(all_fingerprints, cutoff):
     dists = []
 
@@ -146,10 +166,16 @@ def plot_heatmap(distances, output, ind):
     plt.savefig(os.path.join(output, 'heatmap_'+str(ind)+'.png'))
     #plt.show()
 
+#from list of vectors determine those with distance greater than the  cutoff. Returns list of novel reactions
+def find_novel(vector_list, cutoff):
+    novel = []
+    for i in vector_list:
+        for r in vector_list:
+            if euclidean(i[2], r[2]) >= cutoff:
+                novel.append(i)
+    return novel
 
-
-
-def main(input, output, cutoff, ind):
+def main_json(input, output, cutoff, ind):
     data = parse_input(input)
 
     reactions = collect_rxns(data)
@@ -170,7 +196,28 @@ def main(input, output, cutoff, ind):
         os.mkdir(output)
 
 
-def main_single(input, output, cutoff, ind):
+def main_all_hdf(input, output, cutoff):
+    reactions = collect_rxns(input)
+
+    nreactions = len(reactions)
+
+    fingerprints, all_fingerprints = generate_fingerprints(reactions)
+    clusters = cluster_reactions(all_fingerprints=all_fingerprints, cutoff=cutoff)
+    new_fingerprints = add_cluster_info(clusters, all_fingerprints)
+    vectors = generate_vectors(nreactions, new_fingerprints, clusters)
+    #distances = calculate_distances(vectors)
+    
+    print('Num Reactions: ', nreactions)
+    #print('Mean Distance: ', np.mean(distances))
+    #print('Standard Deviation', np.std(distances))
+
+    if os.path.exists(output) == False:
+        os.mkdir(output)
+
+    return nreactions, vectors
+
+
+def main_single_hdf(input, output, cutoff, ind):
 
     reactions = collect_rxns(input)
 
@@ -182,56 +229,155 @@ def main_single(input, output, cutoff, ind):
     vectors = generate_vectors(nreactions, new_fingerprints, clusters)
     distances = calculate_distances(vectors)
     
-    print('Num Reactions: ', nreactions)
-    print('Mean Distance: ', np.mean(distances))
-    print('Standard Deviation', np.std(distances))
+    #print('Num Reactions: ', nreactions)
+    #print('Mean Distance: ', np.mean(distances))
+    #print('Standard Deviation', np.std(distances))
 
     if os.path.exists(output) == False:
         os.mkdir(output)
 
-    return nreactions, np.mean(distances), np.std(distances)
+    return nreactions, np.mean(distances), np.std(distances), vectors, distances
 
 
-    plot_dist_hist(distances, output, ind)
-    plot_heatmap(distances, output, ind)
+    #plot_dist_hist(distances, output, ind)
+    #plot_heatmap(distances, output, ind)
+
+
+
+def main_multi_all(input, output, cutoff):
+    import math
+    data = parse_multi(input)
+
+    c = get_top_scores(input)
+    
+
+
+    flat_data = []
+    for i in data:
+        flat_data.append(i)
+
+    nreaction, vectors = main_all_hdf(flat_data, output, cutoff)
+
+    distances = []
+    count =0
+    for ind, i in enumerate(vectors):
+        euc = []
+        for j in vectors[ind:]:
+            euc.append(euclidean(i[1], j[1]))
+        euc_ = [i for i in euc if i >= 35]
+        if len(euc_) != 0:
+            print('Novel: ',i[0])
+            distances.append(i)
+    
+    print(len(distances))
+    print('example: ', distances[:15])
+
+
+    v1 = [v[1] for v in vectors]
+
+
+    d = {
+        'cost': c,
+        'vectors': v1
+    }
+
+    '''df = pd.DataFrame(data=d)
+    df.to_csv(os.path.join(output, 'results_2.csv'))'''
+
+
+    import matplotlib.pyplot as plt
+
+
+
+    ''' 
+    plt.hist(distances, bins=15)
+    plt.savefig(os.path.join(output, 'all_dist.png'))'''
+
+
     
 def main_mutli(input, output, cutoff):
     data = parse_multi(input)
 
+    c = get_top_scores(input)
+    #print(c)
+
     n = []
     m = []
     s = []
+    v = []
+    v2 = []
+
+    prev = 0
+
+    nov = []
 
     for ind, i in enumerate(data):
-        num, mean, std = main_single(i, output, cutoff, ind)
+        num, mean, std, vectors, distances = main_single_hdf(i, output, cutoff, ind)
         n.append(num)
         m.append(mean),
         s.append(std)
+        v1 = [[ind, prev+v[0], v[1]] for v in vectors]
+        v.extend(v1)
+        v2.append(v1)
+        prev+= len(vectors)
+
+
+
+    
+    novel = []
+    for i in v2: 
+        molv = []
+        for indx, r1 in enumerate(i):
+            euc = []
+            for r2 in i[indx:]:
+                euc.append(euclidean(r1[-1], r2[-1]))
+            euc_ = [i for i in euc[1:] if i >= 3.0]
+            if (len(euc_) == (len(euc[1:])) and len(euc_) != 0):
+                novel.append(r1)
+
+    
+
+    print('Nov len: ', len(novel))
+    print('Nov: ', novel)
+
+
+
 
     d = {
         'nreactions': n, 
         'mean': m,
-        'deviation': s
+        'deviation': s,
+        'cost': c,
+        'vectors': v2
     }
 
-    df = pd.DataFrame(data=d)
-    df.to_csv(os.path.join(output, 'results.csv'))
+    #df = pd.DataFrame(data=d)
+    #df.to_csv(os.path.join(output, 'results.csv'))
 
     print(mean)
     import matplotlib.pyplot as plt
 
-    plt.hist(m, bins=15)
-    plt.savefig(os.path.join(output, 'all_hist_'+str(ind)+'.png'))
+    #plt.plot(distances)
+    #plt.show()
+    #plt.savefig(os.path.join(output, 'all_hist_'+str(ind)+'.png'))
     
+    #novel = find_novel(v, 2.5)
+    #print('Len Novel: ', len(novel))
 
+
+    
 
 
 if __name__ == "__main__":
     print('Starting')
-    if args.multi == False:
+    if args.multi == 's':
         print('Single')
-        main(args.input, args.output, args.cutoff, 0)
-    else:
+        main_json(args.input, args.output, args.cutoff, 0)
+    elif args.multi == 'm':
         print('multi')
         main_mutli(args.input, args.output, args.cutoff)
+    else:
+        main_multi_all(args.input, args.output, args.cutoff)
+        print('multi all')
     print('Complete')
+    

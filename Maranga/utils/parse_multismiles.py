@@ -63,7 +63,7 @@ def findkeys(node, kv):
         for j in node.values():
             for x in findkeys(j, kv):
                 yield x
-
+                
 #remove all reactants
 def remove_non_smarts(smiles_list):
     rxns = []

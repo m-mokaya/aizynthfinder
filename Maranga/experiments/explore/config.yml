@@ -1,12 +1,13 @@
 properties:
+  use_prior: true
   iteration_limit: 100
   return_first: false
-  time_limit: 300
-  C: 3.0
-  cutoff_cumulative: 2.0
+  time_limit: 240
+  C: 1.4
+  cutoff_cumulative: 0.95
   cutoff_number: 100
   max_transforms: 15
-  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/explore/opt1.json'
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/explore/opt2.json'
 policy:
   files:
     uspto:

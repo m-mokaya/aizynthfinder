@@ -126,11 +126,6 @@ def calculate_cost_from_trees(tree_list, configfile):
         cost = cost_scorer(tree)
         policy = policy_scorer(tree)
         scores.append(cost/policy)
-        print('Reaction: ', ind)
-        print('Policy: ', policy)
-        print('Precursors: ', cost)
-        print('Score: ', cost/policy)
-        print('\n')
 
     #scores = [cost_scorer(ReactionTree.from_dict(i))/policy_scorer(ReactionTree.from_dict(i)) for i in tree_list]
     return scores

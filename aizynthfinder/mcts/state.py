@@ -188,7 +188,7 @@ class State:
         costs_score = defaultdict(lambda: max_cost * not_in_stock_multiplier, costs)
         largest_cost = max_cost * not_in_stock_multiplier
         normalised_costs = [i/largest_cost for i in list(costs_score.values())]
-        return np.mean(normalised_costs)
+        return 1-np.mean(normalised_costs)
 
         #return score4
 

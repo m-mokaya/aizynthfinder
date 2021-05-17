@@ -1,6 +1,8 @@
 """ Module contain a class that encapsulate the state of search tree node.
 """
 from __future__ import annotations
+from collections import defaultdict
+from aizynthfinder.aizynthfinder.context.stock import StockException
 import os
 from typing import TYPE_CHECKING
 
@@ -161,7 +163,34 @@ class State:
 
         # NB weights should sum to 1, to ensure that all
         score4 = 0.95 * fraction_in_stock + 0.05 * max_transforms_score
-        return score4
+
+
+        # get the price of each molecule if in stock
+        default_cost = 1.0
+        not_in_stock_multiplier = 10
+
+        costs = {}
+        #iterate through molecules
+        for mol in self.mols:
+            #check if mol in stock (if not, that doct position is skipped).
+            if mol not in self.stock:
+                continue
+            try:
+                cost = self.stock.price(mol)
+            except StockException:
+                costs[mol] = 1.0
+            else:
+                costs[mol] = cost
+        
+        #determine the most expensive molecule
+        max_cost = max(costs.values()) if costs else default_cost
+        #fills missing molecules (those not in stock with not in cost score).
+        costs_score = defaultdict(lambda: max_cost * not_in_stock_multiplier, costs)
+        largest_cost = max_cost * not_in_stock_multiplier
+        normalised_costs = [i/largest_cost for i in list(costs_score.values())]
+        return np.mean(normalised_costs)
+
+        #return score4
 
     @staticmethod
     def _squash_function(

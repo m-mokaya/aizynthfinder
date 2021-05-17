@@ -2,7 +2,7 @@
 """
 from __future__ import annotations
 from collections import defaultdict
-from aizynthfinder.aizynthfinder.context.stock import StockException
+from aizynthfinder.context.stock import StockException
 import os
 from typing import TYPE_CHECKING
 

@@ -189,7 +189,7 @@ class State:
         largest_cost = max_cost * not_in_stock_multiplier
         normalised_costs = [i/largest_cost for i in list(costs_score.values())]
 
-        output_score = 0.5*fraction_in_stock+0.5*(1-np.mean(normalised_costs))
+        output_score = 0.5*fraction_in_stock+0.45*(1-np.mean(normalised_costs))+0.05*max_transforms_score
         return output_score
 
         #return score4

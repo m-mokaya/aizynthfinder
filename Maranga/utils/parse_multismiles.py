@@ -125,7 +125,11 @@ def calculate_cost_from_trees(tree_list, configfile):
         tree = ReactionTree.from_dict(i)
         cost = cost_scorer(tree)
         policy = policy_scorer(tree)
-        scores.append(cost/policy)
+        if (policy == 0):
+            print('Zero policy')
+            #scores.append(cost/0.001)
+        else:
+            scores.append(cost/policy)
 
     #scores = [cost_scorer(ReactionTree.from_dict(i))/policy_scorer(ReactionTree.from_dict(i)) for i in tree_list]
     return scores

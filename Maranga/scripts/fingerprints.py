@@ -196,8 +196,19 @@ def split_similarity(e, s):
         largest.append(max(sims))
         lengths.append(sum(1 if i != 0 else 0 for i in rxn_fp))
     return largest, lengths
-        
 
+
+def aiz_similarity(reactions):
+    trees = [ReactionTree.from_dict(i) for i in reactions]
+    distances = []
+    smallest_distance = []
+    for index1, rxn1 in enumerate(trees):
+        dists = []
+        for rxn2 in trees[index1:]:
+            dists.append(rxn1.distance_to(rxn2))
+        distances.extend(dists)
+        smallest_distance.append(min[dists])
+    return distances
         
 
 

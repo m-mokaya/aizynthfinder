@@ -46,6 +46,7 @@ class State:
     def __init__(self, mols: Sequence[TreeMolecule], config: Configuration) -> None:
         self.mols = mols
         self.stock = config.stock
+        self._config = config
         self.in_stock_list = [mol in self.stock for mol in self.mols]
         self._stock_availability: Optional[List[str]] = None
         self.is_solved = all(self.in_stock_list)
@@ -173,11 +174,11 @@ class State:
         #iterate through molecules
         for mol in self.mols:
             #check if mol in stock (if not, that doct position is skipped).
-            if mol not in self.stock:
+            if mol not in self._config.stock:
                 print('not in stock')
                 continue
             try:
-                cost = self.stock.price(mol)
+                cost = self._config.stock.price(mol)
                 print('Cost: ', cost)
             except StockException:
                 print('no cost => 1.0')

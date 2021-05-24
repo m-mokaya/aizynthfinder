@@ -190,7 +190,7 @@ class State:
         normalised_costs = [i/largest_cost for i in list(costs_score.values())]
 
         #output_score = (0.95*fraction_in_stock)+(0.03*(1-np.mean(normalised_costs)))+(0.05*max_transforms_score)
-        output_score = (0.95*fraction_in_stock)+(0.05*max_transforms_score)
+        output_score = (0.95*fraction_in_stock)+(0.02*max_transforms_score)+(0.03*(1-np.mean(normalised_costs)))
         return output_score
 
         #return score4

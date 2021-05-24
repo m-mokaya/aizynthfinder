@@ -176,11 +176,13 @@ class State:
         #iterate through molecules
         for mol in self.mols:
             #check if mol in stock (if not, that doct position is skipped).
-            if mol not in self._config.stock:
+            if mol not in self.in_stock_list:
                 print('not in stock')
                 continue
             try:
-                cost = self._config.stock.price(mol)
+                values = []
+                values.append(getattr(mol, 'price'))
+                cost = min(values)
                 print('Cost: ', cost)
             except StockException:
                 print('no cost => 1.0')

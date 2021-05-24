@@ -174,10 +174,13 @@ class State:
         for mol in self.mols:
             #check if mol in stock (if not, that doct position is skipped).
             if mol not in self.stock:
+                print('not in stock')
                 continue
             try:
                 cost = self.stock.price(mol)
+                print('Cost: ', cost)
             except StockException:
+                print('no cost => 1.0')
                 costs[mol] = 1.0
             else:
                 costs[mol] = cost
@@ -191,9 +194,9 @@ class State:
 
         #output_score = (0.95*fraction_in_stock)+(0.03*(1-np.mean(normalised_costs)))+(0.05*max_transforms_score)
         output_score = (0.95*fraction_in_stock)+(0.04*max_transforms_score)+(0.01*(1-np.mean(normalised_costs)))
-        print('FIStock: ', 0.95*(fraction_in_stock))
-        print('transforms: ', 0.04*(max_transforms_score))
-        print('costs: ', 0.01*(1-np.mean(normalised_costs)))
+        #print('FIStock: ', 0.95*(fraction_in_stock))
+        #print('transforms: ', 0.04*(max_transforms_score))
+        #print('costs: ', 0.01*(1-np.mean(normalised_costs)))
         return output_score
 
         #return score4

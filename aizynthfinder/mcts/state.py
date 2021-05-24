@@ -170,6 +170,8 @@ class State:
         default_cost = 1.0
         not_in_stock_multiplier = 10
 
+        print('Stock: ', self._config.stock)
+
         costs = {}
         #iterate through molecules
         for mol in self.mols:

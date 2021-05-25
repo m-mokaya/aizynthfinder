@@ -221,8 +221,8 @@ def split_aiz_distance(e, s):
             print(index2)
             distances.append(rxn.distance_to(rxn2))
         all_distances.extend(distances)
-        min_distances.append(min(distances))
-    
+        if (len(distances) != 0):
+                min_distances.append(min(distances))
     return all_distances, min_distances
         
 

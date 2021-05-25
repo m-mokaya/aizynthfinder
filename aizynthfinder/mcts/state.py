@@ -177,6 +177,7 @@ class State:
         for mol in self.mols:
             print(mol)
             print('Type: ', type(mol))
+            print(getattr(mol, 'price'))
             #check if mol in stock (if not, that doct position is skipped).
             if mol not in self.in_stock_list:
                 print('not in stock')

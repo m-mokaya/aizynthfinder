@@ -276,7 +276,7 @@ class Stock(ContextCollection):
         If `source` is not a string, it is taken as a custom object that
         implements the `__contains__` and `__len__` methods for querying.
 
-        :param source: the source of the sock
+        :param source: the source of the stock
         :param key: The key that will be used to select the stock
         """
         src_str = str(source)

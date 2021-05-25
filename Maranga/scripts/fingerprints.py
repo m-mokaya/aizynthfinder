@@ -207,8 +207,23 @@ def aiz_similarity(reactions):
         for rxn2 in trees[index1:]:
             dists.append(rxn1.distance_to(rxn2))
         distances.extend(dists)
-        smallest_distance.append(min[dists])
-    return distances
+        smallest_distance.append(min(dists))
+    return distances, smallest_distance
+
+def split_aiz_distance(e, s):
+    all_distances = []
+    min_distances = []
+
+    for index, rxn in enumerate(e):
+        print(index)
+        distances = []
+        for index2, rxn2 in enumerate(s[:index]):
+            print(index2)
+            distances.append(rxn.distance_to(rxn2))
+        all_distances.extend(distances)
+        min_distances.append(min(distances))
+    
+    return all_distances, min_distances
         
 
 

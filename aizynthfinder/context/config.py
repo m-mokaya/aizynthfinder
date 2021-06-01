@@ -95,6 +95,7 @@ class Configuration:
         config_obj.filter_policy.load_from_config(
             **source.get("filter", {}).get("files", {})
         )
+        
         config_obj.stock.load_from_config(**source.get("stock", {}))
         config_obj.scorers.load_from_config(**source.get("scorer", {}))
 

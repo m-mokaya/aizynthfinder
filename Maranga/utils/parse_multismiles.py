@@ -134,6 +134,44 @@ def calculate_cost_from_trees(tree_list, configfile):
     #scores = [cost_scorer(ReactionTree.from_dict(i))/policy_scorer(ReactionTree.from_dict(i)) for i in tree_list]
     return scores
 
+def calculate_route_cost(reactions, stock_inchis, stock):
+    leaves = [list(i.leafs()) for i in reactions]
+    costs = []
+    for leaf in leaves:
+        prices = []
+        for mol in leaf:
+            inchi = mol.inchi_key
+            # check if mol in stock
+            if inchi in stock_inchis:
+                print(str(mol)+' in stock')
+                # get index of item
+                index = stock[stock['inchi_key']==inchi].index.values
+                print('Index: ', index)
+                # get price value
+                price = stock.iloc[index[0]]['price']
+                print('Price: ', price)
+                prices.append(price)
+            else:
+                print(str(mol)+' NOT in stock')
+                price = 1.8 * not_in_stock_multiplier
+                print('Price: ', price)
+                prices.append(price)
+        costs.append(prices)
+    
+    prices = [sum(i) for i in costs]
+
+    policy_scorer = scoring.USPTOModelPolicyProbabilityScorer()
+    policies = [policy_scorer(i) for i in reactions]
+
+    overal_costs = [] 
+    for price, policy in zip(prices, policies):
+        if policy == 0:
+            continue
+        else:
+            overal_costs.append(price/policy)
+
+    return overal_costs
+
 
 
 

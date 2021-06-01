@@ -47,7 +47,7 @@ class State:
         self.mols = mols
         self.stock = config.stock
         self._config = config
-        self.in_stock_list = [mol in self.stock for mol in self.mols]
+        self.in_stock_list = [mol in self._config.stock for mol in self.mols]
         self._stock_availability: Optional[List[str]] = None
         self.is_solved = all(self.in_stock_list)
         self.max_transforms = max(mol.transform for mol in self.mols)
@@ -167,25 +167,23 @@ class State:
 
 
         # get the price of each molecule if in stock
-        default_cost = 1.0
+        default_cost = 2.5
         not_in_stock_multiplier = 10
-
-        print('Stock: ', self._config.stock)
-       
 
         costs = {}
         #iterate through molecules
-        for mol in self.mols:
+        for index, mol in enumerate(self.mols):
+            print('mol: ', mol)
             #check if mol in stock (if not, that doct position is skipped).
-            if mol not in self.in_stock_list:
+            if self.in_stock_list[index] != True:
                 print('not in stock')
                 continue
             try:
-                cost = self._config.stock.price(mol)
+                cost = self.stock.price(self.mols[index])
                 print('Cost: ', cost)
             except StockException:
-                print('no cost => 1.0')
-                costs[mol] = 1.0
+                print('no cost => 2.5')
+                costs[mol] = 1.8
             else:
                 costs[mol] = cost
         
@@ -198,12 +196,13 @@ class State:
 
         #output_score = (0.95*fraction_in_stock)+(0.03*(1-np.mean(normalised_costs)))+(0.05*max_transforms_score)
         output_score = (0.95*fraction_in_stock)+(0.04*max_transforms_score)+(0.01*(1-np.mean(normalised_costs)))
-        #print('FIStock: ', 0.95*(fraction_in_stock))
-        #print('transforms: ', 0.04*(max_transforms_score))
-        #print('costs: ', 0.01*(1-np.mean(normalised_costs)))
-        return output_score
+        print('FIStock: ', 0.95*(fraction_in_stock))
+        print('transforms: ', 0.045*(max_transforms_score))
+        print('costs: ', 0.005*(1-np.mean(normalised_costs)))
 
-        #return score4
+        # return output_score
+
+        return score4
 
     @staticmethod
     def _squash_function(

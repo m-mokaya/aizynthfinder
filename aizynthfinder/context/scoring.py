@@ -248,11 +248,11 @@ class PriceSumScorer(Scorer):
     def __init__(
         self,
         config: Configuration,
-        default_cost: float = 1.0,
+        default_cost: float = 1.8,
         not_in_stock_multiplier: int = 10,
     ) -> None:
         super().__init__(config)
-        self._config: Configuration = config
+        self._stock = config.stock
 
         self.default_cost = default_cost
         self.not_in_stock_multiplier = not_in_stock_multiplier
@@ -265,14 +265,19 @@ class PriceSumScorer(Scorer):
         self, leafs: Union[Sequence[Molecule], Iterable[Molecule]]
     ) -> dict:
         costs = {}
-        for mol in leafs:
-            if mol not in self._config.stock:
+        for mol in enumerate(leafs):
+            print('mol: ', mol)
+            print()
+            if mol[1] not in self._stock:
+                print('mol not in stock')
                 continue
             try:
-                cost = self._config.stock.price(mol)
+                cost = self._stock.price(mol[0])
             except StockException:
+                print('default => 1.8')
                 costs[mol] = self.default_cost
             else:
+                print('Cost ', cost)
                 costs[mol] = cost
 
         max_cost = max(costs.values()) if costs else self.default_cost
@@ -283,6 +288,7 @@ class PriceSumScorer(Scorer):
         return sum(leaf_costs[mol] for mol in node.state.mols)
 
     def _score_reaction_tree(self, tree: ReactionTree) -> float:
+        print('test')
         leaf_costs = self._calculate_leaf_costs(tree.leafs())
         return sum(leaf_costs[leaf] for leaf in tree.leafs())
 
@@ -361,6 +367,7 @@ _SIMPLE_SCORERS = [
     NumberOfPrecursorsInStockScorer,
     AverageTemplateOccurenceScorer,
     USPTOModelPolicyProbabilityScorer,
+    PriceSumScorer,
 ]
 
 

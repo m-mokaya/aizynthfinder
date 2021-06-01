@@ -6,7 +6,7 @@ import json
 import pandas as pd
 import numpy as np
 
-sys.path.append('../../')
+sys.path.append('../../../')
 
 import Maranga.utils.parse_multismiles as mutils
 import Maranga.scripts.fingerprints as fings

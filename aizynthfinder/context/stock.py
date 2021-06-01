@@ -4,10 +4,11 @@ from __future__ import annotations
 import os
 import copy
 import importlib
+import pandas as pd
 from collections import defaultdict
 from typing import TYPE_CHECKING
 
-import pandas as pd
+
 
 from aizynthfinder.chem import Molecule
 from aizynthfinder.context.collection import ContextCollection
@@ -120,6 +121,33 @@ class InMemoryInchiKeyQuery(StockQueryMixin):
     def stock_inchikeys(self) -> Set[str]:
         return self._stock_inchikeys
 
+# Added to allow for lookup of prices from stock file
+class InMemoryInchiKeyQueryWithPrices(StockQueryMixin):
+    """
+    A Stock query class that is looking up inchi keys and price data from a stock file. 
+
+    The items in this file should have inchi key and price data
+
+    :param filename: location of stock file
+    """
+    def __init__(self, filename: str) -> None:
+        stock = pd.read_hdf(filename, key="table")
+        self._inchi_keys = list(stock["inchi_key"].values)
+        self._prices = list(stock["price"].values)
+    
+    def __contains__(self, mol: Molecule) -> bool:
+        return mol.inchi_key in self._inchi_keys
+    
+    def __len__(self) -> int:
+        print('LEN')
+        return len(self._inchi_keys)
+    
+    def price(self, mol) -> float:
+        try:
+            return self._prices[self._inchi_keys.index(mol.inchi_key)]
+        except ValueError:
+            raise StockException("Cannot compute price")
+
 
 class MongoDbInchiKeyQuery(StockQueryMixin):
     """
@@ -173,7 +201,7 @@ class Stock(ContextCollection):
     """
     A collection of molecules that are in stock
 
-    A molecule can be queried on the stock with:
+    A molecule can be queried on the with:
 
     .. code-block::
 
@@ -271,7 +299,7 @@ class Stock(ContextCollection):
         Load a stock.
 
         If `source` is a string, it is taken as a path to a filename and the
-        stock is loaded as an `InMemoryInchiKeyQuery` object.
+        stock is loaded as an `InMemoryInchiKeyQuery(With Prices)` object.
 
         If `source` is not a string, it is taken as a custom object that
         implements the `__contains__` and `__len__` methods for querying.
@@ -285,7 +313,8 @@ class Stock(ContextCollection):
         self._logger.info(f"Loading stock from {src_str} to {key}")
 
         if isinstance(source, str):
-            source = InMemoryInchiKeyQuery(source)
+            source = InMemoryInchiKeyQuery(source) # can add WithPrices to include prices
+            
         self._items[key] = source
 
     def load_from_config(self, **config: Any) -> None:
@@ -341,6 +370,7 @@ class Stock(ContextCollection):
         :raises StockException: if the price could not be computed
         :return: the minimum price
         """
+        print('Mol: ', mol)
         prices = self._mol_property(mol, "price")
         if not prices:
             raise StockException("Could not obtain price of molecule")
@@ -450,11 +480,17 @@ class Stock(ContextCollection):
         return passes
 
     def _mol_property(self, mol, property_name):
+        print('SOMETHING')
+        print(self.selection)
+        print(mol)
         values = []
         for key in self.selection:
             try:
+                print(self.selection)
+                print(self[key])
                 func = getattr(self[key], property_name)
                 values.append(func(mol))
+                print('FUNC')
             except StockException:
                 pass
         return values

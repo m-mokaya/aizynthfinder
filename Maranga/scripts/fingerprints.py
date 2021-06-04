@@ -121,7 +121,7 @@ def jaccard_binary(x,y):
 def new_jaccard_similarity(x,y):
     """Function that determines the similarity between who vectors
 
-    :param: orderedvectors, x and y
+    :param: orderedvectors, x and y. x is the "explore" reaction.
     :return: similarity score between 0 and 1
     """
     a = 0
@@ -196,6 +196,21 @@ def split_similarity(e, s):
         largest.append(max(sims))
         lengths.append(sum(1 if i != 0 else 0 for i in rxn_fp))
     return largest, lengths
+
+def split_sim(r):
+    largest = []
+    lengths = []
+    all_distances = []
+    e = [i for i in r if i.get('type') == 'explore']
+    s = [i for i in r if i.get('type') == 'normal']
+
+    for rxn in e:
+        rxn_fp = rxn.get('fingerprint')
+        sims = [new_jaccard_similarity(rxn_fp, i.get('fingerprint')) for i in s]
+        largest.append(max(sims))
+        lengths.append(sum(1 if i != 0 else 0 for i in rxn_fp))
+        all_distances.extend(sims)
+    return largest, lengths, all_distances
 
 
 def aiz_similarity(reactions):

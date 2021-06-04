@@ -17,5 +17,5 @@ filter:
     uspto: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
 stock:
   files:
-    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_in_stock.hdf5
+    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5
 

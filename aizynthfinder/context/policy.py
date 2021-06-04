@@ -96,11 +96,12 @@ class ExpansionPolicy(ContextCollection):
                     metadata["template_code"] = move_index
 
                     reaction_class = metadata.get('classification')
+                    template_code = metadata.get('template_hash')
 
                     
                     # augment policy probability if reaction class is in dict.
-                    if reaction_class in policy_templates:
-                        new_policy_value = policy_dict.get(reaction_class)*probs[idx]
+                    if template_code in policy_templates:
+                        new_policy_value = policy_dict.get(template_code)*probs[idx]
                         print('Before prior: ', probs[idx])
                         probs[idx] = new_policy_value
                         print('Afterprior: ', probs[idx])

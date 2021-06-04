@@ -143,18 +143,18 @@ def calculate_route_cost(reactions, stock_inchis, stock):
             inchi = mol.inchi_key
             # check if mol in stock
             if inchi in stock_inchis:
-                print(str(mol)+' in stock')
+                #print(str(mol)+' in stock')
                 # get index of item
                 index = stock[stock['inchi_key']==inchi].index.values
-                print('Index: ', index)
+                #print('Index: ', index)
                 # get price value
                 price = stock.iloc[index[0]]['price']
-                print('Price: ', price)
+                #print('Price: ', price)
                 prices.append(price)
             else:
-                print(str(mol)+' NOT in stock')
+                #print(str(mol)+' NOT in stock')
                 price = 1.8 * not_in_stock_multiplier
-                print('Price: ', price)
+                #print('Price: ', price)
                 prices.append(price)
         costs.append(prices)
     

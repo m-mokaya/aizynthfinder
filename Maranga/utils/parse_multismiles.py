@@ -135,6 +135,8 @@ def calculate_cost_from_trees(tree_list, configfile):
     return scores
 
 def calculate_route_cost(reactions, stock_inchis, stock):
+    not_in_stock_multiplier = 10
+
     leaves = [list(i.leafs()) for i in reactions]
     costs = []
     for leaf in leaves:
@@ -146,10 +148,14 @@ def calculate_route_cost(reactions, stock_inchis, stock):
                 #print(str(mol)+' in stock')
                 # get index of item
                 index = stock[stock['inchi_key']==inchi].index.values
-                #print('Index: ', index)
+                print('Index: ', index)
                 # get price value
-                price = stock.iloc[index[0]]['price']
-                #print('Price: ', price)
+                try:
+                    price = stock.iloc[index[0]]['price']
+                except:
+                    print('did not work.')
+                    price = 1.8 * not_in_stock_multiplier
+                print('Price: ', price)
                 prices.append(price)
             else:
                 #print(str(mol)+' NOT in stock')

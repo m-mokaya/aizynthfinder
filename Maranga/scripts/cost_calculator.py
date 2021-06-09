@@ -43,7 +43,12 @@ if args.type == 'json':
 elif args.type == 'hdf5':
     data = mutils.read_hdf(args.input)
     solved_data = data.loc[(data.is_solved==True)]
-    trees = mutils.collect_trees(solved_data)
+    trees_str = mutils.collect_trees(solved_data)
+    trees= []
+    for i in trees_str:
+        trees.extend(i)
+
+print('Loaded trees, calculating cost ...')
     
 rxns = [ReactionTree.from_dict(i) for i in trees]
 

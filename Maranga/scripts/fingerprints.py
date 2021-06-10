@@ -210,7 +210,8 @@ def split_sim(r):
         largest.append(max(sims))
         lengths.append(sum(1 if i != 0 else 0 for i in rxn_fp))
         all_distances.extend(sims)
-    return largest, lengths, all_distances
+        rxn['largest'] = max(sims)
+    return largest, lengths, all_distances, e
 
 
 def aiz_similarity(reactions):

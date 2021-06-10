@@ -5,6 +5,7 @@ import json
 import argparse
 import pandas as pd
 import numpy as np
+import os
 
 sys.path.append('../')
 
@@ -20,16 +21,18 @@ from aizynthfinder.context.collection import ContextCollection
 from aizynthfinder.context.stock import StockException
 import aizynthfinder.context.scoring as scoring
 import Maranga.utils.parse_multismiles as mutils
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--input', required=True, help='results file location')
 parser.add_argument('--output', required=True, help='output file location')
 parser.add_argument('--type', required=True, help='type of input file')
+parser.add_argument('--name', required=True, help='name of job')
 args = parser.parse_args()
 
 
-stock_file = '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_in_stock.hdf5'
+stock_file = '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_block_stock.hdf5'
 stock = pd.read_hdf(stock_file, 'table')
 stock_inchis = stock['inchi_key'].tolist()
 
@@ -57,7 +60,8 @@ rxns = [ReactionTree.from_dict(i) for i in trees]
 costs = mutils.calculate_route_cost(rxns, stock_inchis, stock)
 invalid_routes = [i for i in costs if i == 1.8*10]
 
-with open(args.output, 'w') as b:
+text_filename = args.name+"_cost.txt"
+with open(os.path.join(args.output, text_filename), 'w') as b:
     b.write('Cost for: \n')
     b.write(args.input+'\n')
     b.write('Number of reactions: '+str(len(costs))+'\n')
@@ -74,6 +78,13 @@ print('Standard Deviation: '+str(np.std(costs))+'\n')
 print('Invalid routes: '+str(len(invalid_routes))+'\n')
 print('Complete')
 
+# write costs to file image
+image_filename = args.output+"_costs.png"
+plt.hist(costs)
+plt.xlabel('Cost')
+plt.ylabel('Freq')
+plt.savefig(os.path.join(args.output, image_filename))
+plt.show()
 
 
 

@@ -32,7 +32,7 @@ parser.add_argument('--name', required=True, help='name of job')
 args = parser.parse_args()
 
 
-stock_file = '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_block_stock.hdf5'
+stock_file = '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5'
 stock = pd.read_hdf(stock_file, 'table')
 stock_inchis = stock['inchi_key'].tolist()
 

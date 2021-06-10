@@ -6,6 +6,8 @@ import argparse
 import pandas as pd
 import numpy as np
 import os
+from statistics import mean, stdev
+import math
 
 sys.path.append('../')
 
@@ -36,6 +38,9 @@ stock_file = '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizy
 stock = pd.read_hdf(stock_file, 'table')
 stock_inchis = stock['inchi_key'].tolist()
 
+print('\n')
+print('Number of stock items: ', len(stock_inchis))
+
 # collect the reaction treees as list of dicts
 if args.type == 'json':
     with open(args.input) as f: 
@@ -51,6 +56,8 @@ elif args.type == 'hdf5':
     for i in trees_str:
         trees.extend(i)
 
+print('Number of trees: ', len(trees))
+print('\n')
 print('Loaded trees, calculating cost ...')
     
 rxns = [ReactionTree.from_dict(i) for i in trees]
@@ -58,14 +65,21 @@ rxns = [ReactionTree.from_dict(i) for i in trees]
 
 #calculate the cost of each tree and return a list
 costs = mutils.calculate_route_cost(rxns, stock_inchis, stock)
-invalid_routes = [i for i in costs if i == 1.8*10]
+invalid_routes = [i for i in costs if isinstance(i, float) == False]
 
-text_filename = args.name+"_cost.txt"
+print('\n')
+nans = [i for i in costs if math.isnan(i)]
+print('NaNs: ', len(nans))
+nan_mean = np.nanmean(costs)
+
+costs = [nan_mean if math.isnan(i) else i for i in costs]
+
+text_filename = "tg2_"+args.name+"_cost.txt"
 with open(os.path.join(args.output, text_filename), 'w') as b:
     b.write('Cost for: \n')
     b.write(args.input+'\n')
     b.write('Number of reactions: '+str(len(costs))+'\n')
-    b.write('Mean cost: '+str(np.mean(costs))+'\n')
+    b.write('Mean cost: '+str(np.nanmean(costs))+'\n')
     b.write('Standard Deviation: '+str(np.std(costs))+'\n')
     b.write('Invalid routes: '+str(len(invalid_routes)))
     b.close()
@@ -79,7 +93,7 @@ print('Invalid routes: '+str(len(invalid_routes))+'\n')
 print('Complete')
 
 # write costs to file image
-image_filename = args.output+"_costs.png"
+image_filename = "tg2_"+args.name+"_costs.png"
 plt.hist(costs)
 plt.xlabel('Cost')
 plt.ylabel('Freq')

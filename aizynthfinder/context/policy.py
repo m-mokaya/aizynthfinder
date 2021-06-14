@@ -87,6 +87,12 @@ class ExpansionPolicy(ContextCollection):
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())
                 #print(str(policy_templates))
+
+                policy_values = [probs[idx] for idx, (move_index, move) in enumerate(possible_moves.iterrows())]
+                max_policy = max(policy_values)
+
+                
+
                 
                 for idx, (move_index, move) in enumerate(possible_moves.iterrows()):
                     metadata = dict(move)
@@ -101,7 +107,7 @@ class ExpansionPolicy(ContextCollection):
                     
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
-                        new_policy_value = policy_dict.get(reaction_class)*probs[idx]
+                        new_policy_value = max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
                         print('Before prior: ', probs[idx])
                         probs[idx] = new_policy_value
                         print('Afterprior: ', probs[idx])

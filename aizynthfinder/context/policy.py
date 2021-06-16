@@ -109,7 +109,7 @@ class ExpansionPolicy(ContextCollection):
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
                         print('Found template: ', str(reaction_class))
-                        new_policy_value = 0.999 # max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
+                        new_policy_value = 1.0 # max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
                         print('Before prior: ', probs[idx])
                         probs[idx] = new_policy_value
                         print('Afterprior: ', probs[idx])

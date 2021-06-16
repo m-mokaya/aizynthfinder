@@ -86,11 +86,12 @@ class ExpansionPolicy(ContextCollection):
 
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())
-                #print(str(policy_templates))
+                print('Editable Templates: ', str(policy_templates))
+                #print('Templates to edit: ', len(policy_templates))
 
                 policy_values = [probs[idx] for idx, (move_index, move) in enumerate(possible_moves.iterrows())]
                 max_policy = max(policy_values)
-
+                print('Max: ', max_policy)
                 
 
                 
@@ -107,6 +108,7 @@ class ExpansionPolicy(ContextCollection):
                     
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
+                        print('Found template: ', str(reaction_class))
                         new_policy_value = max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
                         print('Before prior: ', probs[idx])
                         probs[idx] = new_policy_value

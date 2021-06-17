@@ -67,6 +67,7 @@ class ExpansionPolicy(ContextCollection):
         priors = []
 
         count_list = []
+        
         for mol in molecules:
             count = 0
             if mol in self._stock:
@@ -87,14 +88,14 @@ class ExpansionPolicy(ContextCollection):
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())
                 print('Editable Templates: ', str(policy_templates))
-                #print('Templates to edit: ', len(policy_templates))
 
+                # gets list of probable move policy values
                 policy_values = [probs[idx] for idx, (move_index, move) in enumerate(possible_moves.iterrows())]
                 max_policy = max(policy_values)
                 print('Max: ', max_policy)
                 
-
-                
+                    
+                iteration = 0
                 for idx, (move_index, move) in enumerate(possible_moves.iterrows()):
                     metadata = dict(move)
                     del metadata[self._config.template_column]
@@ -109,12 +110,26 @@ class ExpansionPolicy(ContextCollection):
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
                         print('Found template: ', str(reaction_class))
-                        new_policy_value = 1.0 # max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
-                        print('Before prior: ', probs[idx])
-                        probs[idx] = new_policy_value
+                        
+                        # get top scoring molecule
+                        top_value = probs[iteration]
+                        
+                        # get value of reaction you want to optimise
+                        new_policy_value = probs[idx]# max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
+                        
+                        # alter top scoring reaction value
+                        probs[iteration] == new_policy_value
+                        
+                        # alter value of optimised reaction 
+                        probs[idx] = top_value 
+                        
+                        print('Before prior: ', new_policy_value)
+                        # probs[idx] = new_policy_value
                         print('Afterprior: ', probs[idx])
+                        
                         metadata['policy_probability'] = new_policy_value
                         count+=1
+                        iteration += 1
                     
                     '''if metadata.get('classification') == 'N-acylation to amide':
                         print('REACTION - N-ACYLATION TO AMIDE (before): ', probs[idx])

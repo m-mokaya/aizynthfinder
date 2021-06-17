@@ -4,10 +4,10 @@ properties:
   return_first: false
   time_limit: 240
   C: 1.4
-  cutoff_cumulative: 0.98
+  cutoff_cumulative: 0.95
   cutoff_number: 100
   max_transforms: 15
-  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt4_class.json'
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target/opt4_class.json'
 policy:
   files:
     uspto:
@@ -18,4 +18,5 @@ filter:
     uspto: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
 stock:
   files:
-    zinc: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/zinc_stock.hdf5
+    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5
+

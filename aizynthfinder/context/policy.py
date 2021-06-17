@@ -112,18 +112,21 @@ class ExpansionPolicy(ContextCollection):
                         print('Found template: ', str(reaction_class))
                         
                         # get top scoring molecule
-                        top_value = probs[iteration]
+                        #top_value = probs[iteration]
+
+                        #get old policy value
+                        old_policy_value = probs[idx]
                         
                         # get value of reaction you want to optimise
-                        new_policy_value = probs[idx]# max_policy+probs[idx] # policy_dict.get(reaction_class)*probs[idx]
+                        new_policy_value =  max_policy + probs[idx] # policy_dict.get(reaction_class)*probs[idx]
                         
                         # alter top scoring reaction value
-                        probs[iteration] == new_policy_value
+                        #probs[iteration] == new_policy_value
                         
                         # alter value of optimised reaction 
-                        probs[idx] = top_value 
+                        probs[idx] = new_policy_value
                         
-                        print('Before prior: ', new_policy_value)
+                        print('Before prior: ', old_policy_value)
                         # probs[idx] = new_policy_value
                         print('Afterprior: ', probs[idx])
                         

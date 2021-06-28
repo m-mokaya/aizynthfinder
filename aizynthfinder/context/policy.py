@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
+import sys
 
 from aizynthfinder.chem import RetroReaction
 from aizynthfinder.utils.models import load_model
@@ -83,7 +84,8 @@ class ExpansionPolicy(ContextCollection):
                 probs = all_transforms_prop[probable_transforms_idx]
 
                 #uses filename parameter to load dict from json. 
-                policy_dict = PolicyValues(self._policy_values).from_dict()
+                #policy_dict = PolicyValues(self._policy_values).from_dict()
+                policy_dict = PolicyValues(sys.argv[8])
 
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())

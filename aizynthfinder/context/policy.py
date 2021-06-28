@@ -44,7 +44,7 @@ class ExpansionPolicy(ContextCollection):
         super().__init__()
         self._config = config
         self._stock = config.stock
-        self._policy_values = config.policy_values
+        self._policy_values = self._config.policy_values
 
     def __call__(
         self, molecules: Sequence[TreeMolecule]
@@ -85,7 +85,6 @@ class ExpansionPolicy(ContextCollection):
 
                 #uses filename parameter to load dict from json. 
                 #policy_dict = PolicyValues(self._policy_values).from_dict()
-                policy_dict = PolicyValues(sys.argv[8])
 
                 #loads reaction classes to a list
                 policy_templates = list(policy_dict.keys())

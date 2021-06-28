@@ -51,7 +51,7 @@ class Configuration:
     template_column: str = "retro_template"
     prune_cycles_in_search: bool = True
     use_remote_models: bool = False
-    policy_values: str = ''
+    policy_values: str = ' '
     stock: Stock = None  # type: ignore
     expansion_policy: ExpansionPolicy = None  # type: ignore
     filter_policy: FilterPolicy = None  # type: ignore

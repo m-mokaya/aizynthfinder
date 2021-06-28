@@ -29,6 +29,15 @@ def read_json(filename):
     json_reaction_trees = [json.loads(i) for i in reaction_trees]
     return json_reaction_trees
 
+# save list of reaction dicts to .json file
+def save_json(rxns, filename):
+    data = {
+    'reaction trees': rxns
+    }
+
+    with open(filename, 'w') as outfile:
+        json.dump(data, outfile)
+
 #read in hdf file from aizynthfinder output
 def read_hdf(filename):
     data = pd.read_hdf(filename, 'table')

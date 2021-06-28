@@ -1,5 +1,5 @@
 properties:
-  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target/opt4_class_1.json'
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt_dicts/opt4_class_1.json'
   use_prior: true
   iteration_limit: 100
   return_first: false

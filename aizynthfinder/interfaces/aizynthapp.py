@@ -321,6 +321,7 @@ class AiZynthApp:
                     "exclude_target_from_stock": self._input[
                         "exclude_target_from_stock"
                     ].value,
+                    "policy_values": self._input["policy_values"].value,
                 }
             )
 

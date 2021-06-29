@@ -151,6 +151,7 @@ class AiZynthFinder:
         self.config.iteration_limit = params["iteration_limit"]
         self.config.exclude_target_from_stock = params["exclude_target_from_stock"]
         self.config.filter_cutoff = params["filter_cutoff"]
+        self.config.policy_values = params["policy_values"]
 
         self.prepare_tree()
         self.tree_search()

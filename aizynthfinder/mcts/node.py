@@ -233,7 +233,10 @@ class Node:
         """
 
         scores = self._children_q() + self._children_u()
-        
+
+        self._logger.debug(
+                    "Q score: "+self._children_q
+                )
         #checks if scores is empty. if yes, return None
         if scores.size == 0:
             return None
@@ -245,6 +248,8 @@ class Node:
             if not child and max(self._children_values) > 0:
                 return self.promising_child()
 
+
+            
             if not child:
                 self._logger.debug(
                     "Returning None from promising_child() because there were no applicable action"
@@ -307,6 +312,7 @@ class Node:
         return True
 
     def _children_q(self) -> np.ndarray:
+        print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
         return np.array(self._children_values) / np.array(self._children_visitations)
 
     def _children_u(self) -> np.ndarray:

@@ -241,6 +241,7 @@ class AiZynthFinder:
             "iteration_limit": self.config.iteration_limit,
             "exclude_target_from_stock": self.config.exclude_target_from_stock,
             "filter_cutoff": self.config.filter_cutoff,
+            "policy_values": self.config.policy_values,
         }
 
         #print parameters to check correct config file

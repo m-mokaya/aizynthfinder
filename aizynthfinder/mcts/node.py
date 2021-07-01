@@ -312,8 +312,19 @@ class Node:
         return True
 
     def _children_q(self) -> np.ndarray:
-        print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
-        print('Child Actions: ', self._children_actions)
+        #print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
+        #print('Child Actions: ', self._children_actions)
+        
+        children_rev = []
+        for index, (act, q) in enumerate(zip(self._children_actions, self._children_values)):
+            
+            r_dict = {}
+            r_dict['a'] = vars(act).get('metadata')
+            r_dict['q'] = q 
+
+            children_rev.append(r_dict)
+            print(children_rev)
+
         return np.array(self._children_values) / np.array(self._children_visitations)
 
     def _children_u(self) -> np.ndarray:

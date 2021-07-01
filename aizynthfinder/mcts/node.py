@@ -313,6 +313,7 @@ class Node:
 
     def _children_q(self) -> np.ndarray:
         print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
+        print('Child Actions: ', self._children_actions)
         return np.array(self._children_values) / np.array(self._children_visitations)
 
     def _children_u(self) -> np.ndarray:

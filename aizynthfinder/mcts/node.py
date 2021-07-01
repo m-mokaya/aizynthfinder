@@ -235,7 +235,7 @@ class Node:
         scores = self._children_q() + self._children_u()
 
         self._logger.debug(
-                    "Q score: "+self._children_q
+                    "Q score: "+str(self._children_q)
                 )
         #checks if scores is empty. if yes, return None
         if scores.size == 0:

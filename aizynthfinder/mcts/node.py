@@ -4,6 +4,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import numpy as np
+import json
+import os
 
 from aizynthfinder.chem import RetroReaction, TreeMolecule
 from aizynthfinder.mcts.state import State
@@ -234,9 +236,6 @@ class Node:
 
         scores = self._children_q() + self._children_u()
 
-        self._logger.debug(
-                    "Q score: "+str(self._children_q)
-                )
         #checks if scores is empty. if yes, return None
         if scores.size == 0:
             return None
@@ -315,15 +314,46 @@ class Node:
         #print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
         #print('Child Actions: ', self._children_actions)
         
-        children_rev = []
-        for index, (act, q) in enumerate(zip(self._children_actions, self._children_values)):
-            
-            r_dict = {}
-            r_dict['a'] = vars(act).get('metadata')
-            r_dict['q'] = q 
+        ci_file_path = self._config.children_info
 
-            children_rev.append(r_dict)
-            print(children_rev)
+        if os.path.isfile(ci_file_path):
+            with open(ci_file_path, "r") as read_file:
+                ci_data = json.load(read_file)
+        else:
+            ci_data = []
+        
+        if len(ci_data) != 0:
+            template_names = [i.get('template') for i in ci_data]
+        else:
+            template_names = []
+
+        for act, q, freq in zip(self._children_actions, self._children_values, self._children_visitations):
+            metadata = vars(act).get('metadata')
+            name = metadata.get('classification')
+            if name not in template_names:
+                template_names.append(metadata.get('classification'))
+                d = {}
+                d['template'] = metadata.get('classification')
+                d['metadata'] = {'q_value': float(q), 'visits': freq}
+                d['count'] = 1
+                ci_data.append(d)
+            else:
+                t_dict = [i for i in ci_data if i.get('template') == name]
+                if len(t_dict) != 1:
+                    print('Multiple dicts found!')
+                d = t_dict[0]
+                meta = d.get('metadata')
+                q_val = meta.get('q_value')
+                f = meta.get('visits')
+                c = d.get('count')
+                d['metadata'] = {'q_value': float((q_val+freq)/c+1), 'visits':f+freq/c+1}
+                d['count'] += 1
+
+                ci_data = [i for i in ci_data if i.get('template') != name]
+                ci_data.append(d)
+
+        with open(ci_file_path, 'w') as fout:
+            json.dump(ci_data, fout)
 
         return np.array(self._children_values) / np.array(self._children_visitations)
 

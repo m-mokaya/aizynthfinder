@@ -52,6 +52,7 @@ class Configuration:
     prune_cycles_in_search: bool = True
     use_remote_models: bool = False
     policy_values: str = ''
+    children_info: str = ''
     stock: Stock = None  # type: ignore
     expansion_policy: ExpansionPolicy = None  # type: ignore
     filter_policy: FilterPolicy = None  # type: ignore

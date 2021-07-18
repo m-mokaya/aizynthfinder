@@ -36,7 +36,8 @@ class Configuration:
     On instantiation it will read default parameters from a config.yml
     file located in the `data` folder of the package.
     """
-
+    policy_values: str = ''
+    children_info: str = ''
     C: float = 1.4
     cutoff_cumulative: float = 0.995
     cutoff_number: int = 50
@@ -51,8 +52,6 @@ class Configuration:
     template_column: str = "retro_template"
     prune_cycles_in_search: bool = True
     use_remote_models: bool = False
-    policy_values: str = ''
-    children_info: str = ''
     stock: Stock = None  # type: ignore
     expansion_policy: ExpansionPolicy = None  # type: ignore
     filter_policy: FilterPolicy = None  # type: ignore

@@ -15,7 +15,6 @@ class PolicyValues:
         self.filename = filename
     
     def from_dict(self):
-        print('FILENAME: ', self.filename)
         with open(self.filename) as infile:
             data = json.load(infile)
         return data

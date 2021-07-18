@@ -35,6 +35,7 @@ class SearchTree:
             self.root = None
         self.config = config
         self._graph: Optional[nx.DiGraph] = None
+        
 
     @classmethod
     def from_json(cls, filename: str, config: Configuration) -> "SearchTree":

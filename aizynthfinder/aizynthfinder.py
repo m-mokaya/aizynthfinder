@@ -41,11 +41,12 @@ class AiZynthFinder:
     :param configdict: the config as a dictionary source, defaults to None
     """
 
-    def __init__(self, configfile: str = None, configdict: StrDict = None, policy_values: str = None) -> None:
+    def __init__(self, configfile: str = None, configdict: StrDict = None) -> None:
         self._logger = logger()
 
         if configfile:
             self.config = Configuration.from_file(configfile)
+            print('CONFIG: ', self.config.policy_values)
         elif configdict:
             self.config = Configuration.from_dict(configdict)
         else:

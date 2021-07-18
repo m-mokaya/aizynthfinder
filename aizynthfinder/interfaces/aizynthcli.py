@@ -68,6 +68,9 @@ def _get_arguments() -> argparse.Namespace:
         default=False,
         help="if provided, perform automatic clustering",
     )
+    parser.add_argument(
+        "--optdict", help="the filename of a opt dict file"
+    )
     return parser.parse_args()
 
 

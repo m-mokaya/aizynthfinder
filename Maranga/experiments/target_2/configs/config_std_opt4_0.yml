@@ -1,5 +1,4 @@
 properties:
-  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt_dicts/opt4_class_0.json'
   use_prior: true
   iteration_limit: 100
   return_first: false
@@ -8,6 +7,8 @@ properties:
   cutoff_cumulative: 0.95
   cutoff_number: 100
   max_transforms: 15
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt_dicts/opt4_class_0.json'
+  children_info: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/children_info_x.json'
 policy:
   files:
     uspto:

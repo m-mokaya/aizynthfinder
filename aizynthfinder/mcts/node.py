@@ -333,6 +333,7 @@ class Node:
         #print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
         #print('Child Actions: ', self._children_actions)
         
+        '''
         ci_file_path = self._config.children_info
 
         if os.path.isfile(ci_file_path):
@@ -373,6 +374,8 @@ class Node:
 
         with open(ci_file_path, 'w') as fout:
             json.dump(ci_data, fout)
+            
+        '''
 
         return np.array(self._children_values) / np.array(self._children_visitations)
 

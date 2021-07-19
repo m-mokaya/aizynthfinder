@@ -1,11 +1,21 @@
+properties:
+  iteration_limit: 100
+  return_first: false
+  time_limit: 120
+  C: 1.4
+  cutoff_cumulative: 0.995
+  cutoff_number: 50
+  max_transforms: 6
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt_dicts/aug0.json'
+  children_info: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/children_info.json'
 policy:
   files:
     uspto:
-      - /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
-      - /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
+      - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
+      - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
 filter:
   files:
-    uspto: /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
+    uspto: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
 stock:
   files:
-    zinc: /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/zinc_stock.hdf5
+    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5

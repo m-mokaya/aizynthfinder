@@ -311,7 +311,9 @@ class Node:
         # if file exists it loads data, othersse it creates new empty dictionary
         if os.path.isfile(ci_file_path):
             with open(ci_file_path, "r") as read_file:
-                ci_data = json.loads(read_file)
+                ci_data = json.load(read_file)
+            #ci_data = self.read_list_of_dicts(ci_file_path)
+            #print('READ CI: ', ci_data)
         else:
             ci_data = []
         
@@ -349,7 +351,8 @@ class Node:
 
         with open(ci_file_path, 'w') as fout:
             json.dump(ci_data, fout)
-            
+        #print('WRITE CI: ', ci_data)
+        #self.write_list_of_dicts(ci_data, ci_file_path)    
         
 
         return np.array(self._children_values) / np.array(self._children_visitations)
@@ -444,7 +447,7 @@ class Node:
             return np.random.choice(new_nodes)
         return None
 
-    def write_list_of_ngram_dicts(self, list_of_dicts: list , filename: str):
+    def write_list_of_dicts(self, list_of_dicts: list , filename: str):
         with open(filename, 'w', encoding='utf-8') as file:
             for dic in list_of_dicts:
                 data=json.dumps(dic) 

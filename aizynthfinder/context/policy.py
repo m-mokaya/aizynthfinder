@@ -45,7 +45,6 @@ class ExpansionPolicy(ContextCollection):
         self._config = config
         self._stock = config.stock
         self._policy_values = self._config.policy_values
-        print('POLICY: ', self._config.policy_values)
 
     def __call__(
         self, molecules: Sequence[TreeMolecule]
@@ -112,7 +111,7 @@ class ExpansionPolicy(ContextCollection):
                     
                     # augment policy probability if reaction class is in dict.
                     if reaction_class in policy_templates:
-                        print('Found template: ', str(reaction_class))
+                        #print('Found template: ', str(reaction_class))
                         
                         # get top scoring molecule
                         #top_value = probs[iteration]

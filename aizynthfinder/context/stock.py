@@ -139,7 +139,6 @@ class InMemoryInchiKeyQueryWithPrices(StockQueryMixin):
         return mol.inchi_key in self._inchi_keys
     
     def __len__(self) -> int:
-        print('LEN')
         return len(self._inchi_keys)
     
     def price(self, mol) -> float:
@@ -370,7 +369,7 @@ class Stock(ContextCollection):
         :raises StockException: if the price could not be computed
         :return: the minimum price
         """
-        print('Mol: ', mol)
+        
         prices = self._mol_property(mol, "price")
         if not prices:
             raise StockException("Could not obtain price of molecule")
@@ -480,17 +479,13 @@ class Stock(ContextCollection):
         return passes
 
     def _mol_property(self, mol, property_name):
-        print('SOMETHING')
         print(self.selection)
-        print(mol)
         values = []
         for key in self.selection:
             try:
-                print(self.selection)
-                print(self[key])
+                
                 func = getattr(self[key], property_name)
                 values.append(func(mol))
-                print('FUNC')
             except StockException:
                 pass
         return values

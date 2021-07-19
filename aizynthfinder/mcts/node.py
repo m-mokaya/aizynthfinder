@@ -226,56 +226,28 @@ class Node:
     def promising_child(self) -> Optional["Node"]:
         """
         Return the child with the currently highest Q+U
-
         The selected child will be instantiated if it has not been already.
-
         If no actions could be found that were applicable, the method will
         return None.
-
         :return: the child
         """
 
-        # scores = self._children_q() + self._children_u()
-
-        # #checks if scores is empty. if yes, return None
-        # if scores.size == 0:
-        #     return None
-        # else:
-        #     print('Size: ', scores.size)
-        #     indices = np.where(scores == scores.max())[0]
-        #     index = np.random.choice(indices)
-
-        #     child = self._select_child(index)
-        #     if not child and max(self._children_values) > 0:
-        #         return self.promising_child()
-
         scores = self._children_q() + self._children_u()
-        if len(scores) == 0:
-            return None
-        else:
-            try:
-                indices = np.where(scores == scores.max())[0]
-                index = np.random.choice(indices)
+        indices = np.where(scores == scores.max())[0]
+        index = np.random.choice(indices)
 
-                child = self._select_child(index)
-                if not child and max(self._children_values) > 0:
-                    return self.promising_child()
+        child = self._select_child(index)
+        if not child and max(self._children_values) > 0:
+            return self.promising_child()
 
+        if not child:
+            self._logger.debug(
+                "Returning None from promising_child() because there were no applicable action"
+            )
+            self.is_expanded = False
+            self.is_expandable = False
 
-                    
-                if not child:
-                    self._logger.debug(
-                        "Returning None from promising_child() because there were no applicable action"
-                    )
-                    self.is_expanded = False
-                    self.is_expandable = False
-
-                return child
-        
-            except:
-                # self.is_expanded = False
-                # self.is_expandable = False
-                return None
+        return child
 
     def serialize(self, molecule_store: MoleculeSerializer) -> StrDict:
         """
@@ -333,19 +305,22 @@ class Node:
         #print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
         #print('Child Actions: ', self._children_actions)
         
-        '''
+        # collects filepath for children_info data
         ci_file_path = self._config.children_info
 
+        # if file exists it loads data, othersse it creates new empty dictionary
         if os.path.isfile(ci_file_path):
             with open(ci_file_path, "r") as read_file:
                 ci_data = json.load(read_file)
         else:
             ci_data = []
         
+        # gets names of all templates of used. If new file it generates empty list
         if len(ci_data) != 0:
             template_names = [i.get('template') for i in ci_data]
         else:
             template_names = []
+
 
         for act, q, freq in zip(self._children_actions, self._children_values, self._children_visitations):
             metadata = vars(act).get('metadata')
@@ -366,7 +341,7 @@ class Node:
                 q_val = meta.get('q_value')
                 f = meta.get('visits')
                 c = d.get('count')
-                d['metadata'] = {'q_value': float((q_val+freq)/c+1), 'visits':f+freq/c+1}
+                d['metadata'] = {'q_value': float(((q_val*c)+q)/c+1), 'visits':(((f*c)+freq)/c+1)}
                 d['count'] += 1
 
                 ci_data = [i for i in ci_data if i.get('template') != name]
@@ -375,7 +350,7 @@ class Node:
         with open(ci_file_path, 'w') as fout:
             json.dump(ci_data, fout)
             
-        '''
+        
 
         return np.array(self._children_values) / np.array(self._children_visitations)
 

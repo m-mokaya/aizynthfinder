@@ -46,7 +46,6 @@ class AiZynthFinder:
 
         if configfile:
             self.config = Configuration.from_file(configfile)
-            print('CONFIG: ', self.config.policy_values)
         elif configdict:
             self.config = Configuration.from_dict(configdict)
         else:

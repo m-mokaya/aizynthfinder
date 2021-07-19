@@ -11,11 +11,11 @@ properties:
 policy:
   files:
     uspto:
-      - /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
-      - /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
+      - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
+      - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
 filter:
   files:
-    uspto: /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
+    uspto: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
 stock:
   files:
-    zinc: /data/naga02/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/zinc_stock.hdf5
+    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5

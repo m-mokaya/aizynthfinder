@@ -266,18 +266,18 @@ class PriceSumScorer(Scorer):
     ) -> dict:
         costs = {}
         for mol in enumerate(leafs):
-            print('mol: ', mol)
-            print()
+            #print('mol: ', mol)
+            #print()
             if mol[1] not in self._stock:
-                print('mol not in stock')
+                #print('mol not in stock')
                 continue
             try:
                 cost = self._stock.price(mol[0])
             except StockException:
-                print('default => 1.8')
+                #print('default => 1.8')
                 costs[mol] = self.default_cost
             else:
-                print('Cost ', cost)
+                #print('Cost ', cost)
                 costs[mol] = cost
 
         max_cost = max(costs.values()) if costs else self.default_cost

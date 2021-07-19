@@ -443,3 +443,16 @@ class Node:
         if new_nodes:
             return np.random.choice(new_nodes)
         return None
+
+    def write_list_of_ngram_dicts(self, list_of_dicts: list , filename: str):
+        with open(filename, 'w', encoding='utf-8') as file:
+            for dic in list_of_dicts:
+                data=json.dumps(dic) 
+                file.write(data)
+                file.write("\n")
+    
+    def read_list_of_dicts(self, filename: str):
+        ci_data = []
+        with open(filename, "r") as read_file:
+            for i in read_file.readlines():
+                ci_data.append(json.loads(i))

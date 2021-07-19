@@ -311,7 +311,7 @@ class Node:
         # if file exists it loads data, othersse it creates new empty dictionary
         if os.path.isfile(ci_file_path):
             with open(ci_file_path, "r") as read_file:
-                ci_data = json.load(read_file)
+                ci_data = json.loads(read_file)
         else:
             ci_data = []
         

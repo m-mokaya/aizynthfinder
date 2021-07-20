@@ -232,22 +232,25 @@ class Node:
         :return: the child
         """
 
-        scores = self._children_q() + self._children_u()
-        indices = np.where(scores == scores.max())[0]
-        index = np.random.choice(indices)
+        try:
+            scores = self._children_q() + self._children_u()
+            indices = np.where(scores == scores.max())[0]
+            index = np.random.choice(indices)
 
-        child = self._select_child(index)
-        if not child and max(self._children_values) > 0:
-            return self.promising_child()
+            child = self._select_child(index)
+            if not child and max(self._children_values) > 0:
+                return self.promising_child()
 
-        if not child:
-            self._logger.debug(
-                "Returning None from promising_child() because there were no applicable action"
-            )
-            self.is_expanded = False
-            self.is_expandable = False
+            if not child:
+                self._logger.debug(
+                    "Returning None from promising_child() because there were no applicable action"
+                )
+                self.is_expanded = False
+                self.is_expandable = False
 
-        return child
+            return child
+        except: 
+            return None
 
     def serialize(self, molecule_store: MoleculeSerializer) -> StrDict:
         """

@@ -1,7 +1,6 @@
 CN1CCN([C@H]2Cn3cccc3Sc3ccc(Cl)cc32)CC1
 CN1CCN(C2Cn3cccc3Sc3ccc(Cl)cc32)CC1
 OCCN1CCN(C2Cn3cccc3Sc3ccc(Br)cc32)CC1
-CN1CCN([C@@H]2Cc3ccccc3Sc3ccc(Cl)cc32)CC1
 O=C(CCCN1CCC(O)(c2ccc(Cl)cc2)CC1)c1ccc(F)cc1
 CN1CCN(C2=Cc3ccccc3Cn3cccc32)CC1
 CN1CCN([C@@H]2Cn3cccc3Sc3ccccc32)CC1

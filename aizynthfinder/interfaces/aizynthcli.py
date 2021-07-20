@@ -121,6 +121,7 @@ def _process_multi_smiles(
 
     results = defaultdict(list)
     for smi in smiles:
+        print('SMILES: ', smi)
         finder.target_smiles = smi
         finder.prepare_tree()
         search_time = finder.tree_search()

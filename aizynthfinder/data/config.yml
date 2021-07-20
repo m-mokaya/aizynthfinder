@@ -5,8 +5,8 @@ properties:
   C: 1.4
   cutoff_cumulative: 0.995
   cutoff_number: 50
-  max_transforms: 6
-  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt_dicts/aug0.json'
+  max_transforms: 12
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/Random/PolicyDicts/aug0.json'
   children_info: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/children_info.json'
 policy:
   files:

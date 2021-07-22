@@ -173,16 +173,16 @@ class State:
         costs = {}
         #iterate through molecules
         for index, mol in enumerate(self.mols):
-            print('mol: ', mol)
+            #print('mol: ', mol)
             #check if mol in stock (if not, that doct position is skipped).
             if self.in_stock_list[index] != True:
-                print('not in stock')
+                #print('not in stock')
                 continue
             try:
                 cost = self.stock.price(self.mols[index])
-                print('Cost: ', cost)
+                #print('Cost: ', cost)
             except StockException:
-                print('no cost => 2.5')
+                #print('no cost => 2.5')
                 costs[mol] = 1.8
             else:
                 costs[mol] = cost
@@ -195,12 +195,13 @@ class State:
         normalised_costs = [i/largest_cost for i in list(costs_score.values())]
 
         #output_score = (0.95*fraction_in_stock)+(0.03*(1-np.mean(normalised_costs)))+(0.05*max_transforms_score)
-        output_score = (0.95*fraction_in_stock)+(0.04*max_transforms_score)+(0.01*(1-np.mean(normalised_costs)))
+        output_score = 0.95 * fraction_in_stock + 0.04 * max_transforms_score + (0.01*(1-np.mean(normalised_costs)))
         #print('FIStock: ', 0.95*(fraction_in_stock))
         #print('transforms: ', 0.045*(max_transforms_score))
         #print('costs: ', 0.005*(1-np.mean(normalised_costs)))
+        print('Mean Route Cost: ', np.mean(normalised_costs))
 
-        return output_score
+        return score4
 
         #return score4
 

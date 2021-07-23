@@ -1,6 +1,0 @@
-Cost for: 
-/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/results/tg2_std_opt4_24_results.hdf5
-Number of reactions: 0
-Mean cost: nan
-Standard Deviation: nan
-Invalid routes: 0

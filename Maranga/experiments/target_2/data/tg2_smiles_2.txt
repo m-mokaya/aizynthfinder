@@ -1,0 +1,3 @@
+O=S(=O)(NCC(c1ccco1)N1CCN(c2ccccc2)CC1)c1ccccc1
+CN1CCN([C@H]2Cn3cccc3Sc3ccc(Cl)cc32)CC1
+CN1CCN(C2Cn3cccc3Sc3ccc(Cl)cc32)CC1

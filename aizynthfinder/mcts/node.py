@@ -335,7 +335,7 @@ class Node:
                 template_names.append(metadata.get('classification'))
                 d = {}
                 d['template'] = metadata.get('classification')
-                d['metadata'] = {'q_value': float(q), 'visits': freq}
+                d['metadata'] = {'q_vals': [float(q/freq)], 'av_q_value': float(q/freq), 'visits': [freq], 'av_visits': freq}
                 d['count'] = 1
                 ci_data.append(d)
             else:
@@ -343,11 +343,22 @@ class Node:
                 if len(t_dict) != 1:
                     print('Multiple dicts found!')
                 d = t_dict[0]
+                
                 meta = d.get('metadata')
-                q_val = meta.get('q_value')
-                f = meta.get('visits')
-                c = d.get('count')
-                d['metadata'] = {'q_value': float(((q_val*c)+q)/c+1), 'visits':(((f*c)+freq)/c+1)}
+                counts = d.get('count')
+
+                av_q_val = meta.get('av_q_value')
+                q_vals = meta.get('q_vals')
+                visits = meta.get('visits')
+                av_visits = meta.get('av_visits')
+                
+                q_vals.append(float(q/freq))
+                visits.append(freq)
+
+                new_q_av = ((av_q_val*counts)+(q/freq))/(counts+1)
+                new_v_av = ((av_visits*counts)+freq)/(counts+1)
+
+                d['metadata'] = {'q_vals': q_vals, 'av_q_value': float(new_q_av), 'visits': visits, 'av_visits': new_v_av}
                 d['count'] += 1
 
                 ci_data = [i for i in ci_data if i.get('template') != name]

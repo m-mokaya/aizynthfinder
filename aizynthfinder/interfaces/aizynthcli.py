@@ -199,6 +199,7 @@ def main() -> None:
     finder.expansion_policy.select(args.policy or finder.expansion_policy.items[0])
     try:
         finder.filter_policy.select(args.policy)
+        print('policy selected')
     except KeyError:
         print('error in policy selection')
         pass
@@ -207,6 +208,7 @@ def main() -> None:
         print('starting multismiles')
         _process_multi_smiles(args.smiles, finder, args.output, args.cluster)
     else:
+        print('starting single smiles')
         _process_single_smiles(args.smiles, finder, args.output, args.cluster)
 
 

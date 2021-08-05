@@ -305,7 +305,7 @@ class Node:
         return True
 
     def _children_q(self) -> np.ndarray:
-        
+        '''
         #print('Child Q: ', np.array(self._children_values) / np.array(self._children_visitations))
         #print('Child Actions: ', self._children_actions)
         
@@ -368,7 +368,7 @@ class Node:
             json.dump(ci_data, fout)
         #print('WRITE CI: ', ci_data)
         #self.write_list_of_dicts(ci_data, ci_file_path)    
-        
+        '''
 
         return np.array(self._children_values) / np.array(self._children_visitations)
 

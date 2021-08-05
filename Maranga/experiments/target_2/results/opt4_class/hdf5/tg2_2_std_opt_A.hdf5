@@ -1,0 +1,18 @@
+[
+  {
+    "type": "mol",
+    "hide": false,
+    "smiles": "CN1CCN(C2Cn3cccc3Sc3ccc(Cl)cc32)CC1",
+    "is_chemical": true,
+    "in_stock": false,
+    "children": [
+      {
+        "type": "reaction",
+        "hide": false,
+        "smiles": "[C:1]([CH3:2])([cH3:3])[N:5]([CH3:4])[CH3:6]>>O=[C:1]([CH3:2])[cH3:3].[CH3:4][N:5][CH3:6]",
+        "is_reaction": true,
+        "metadata": {
+          "template_hash": "e2c3ee5da9aa9675ad987be40beb5130d31e54544c07aad9093e3547",
+          "classification": "Reductive amination",
+          "library_occurence": 82,
+          "policy_probability": 

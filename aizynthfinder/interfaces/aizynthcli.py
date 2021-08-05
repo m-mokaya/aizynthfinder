@@ -194,16 +194,21 @@ def main() -> None:
     setup_logger(logging.INFO, file_level_logging)
 
     finder = AiZynthFinder(configfile=args.config)
+    print('finder created')
     _select_stocks(finder, args)
     finder.expansion_policy.select(args.policy or finder.expansion_policy.items[0])
     try:
         finder.filter_policy.select(args.policy)
+        print('policy selected')
     except KeyError:
+        print('error in policy selection')
         pass
 
     if multi_smiles:
+        print('starting multismiles')
         _process_multi_smiles(args.smiles, finder, args.output, args.cluster)
     else:
+        print('starting single smiles')
         _process_single_smiles(args.smiles, finder, args.output, args.cluster)
 
 

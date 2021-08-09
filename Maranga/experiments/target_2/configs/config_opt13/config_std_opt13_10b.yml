@@ -1,0 +1,23 @@
+properties:
+  use_prior: true
+  iteration_limit: 100
+  return_first: false
+  time_limit: 240
+  C: 1.4
+  cutoff_cumulative: 0.95
+  cutoff_number: 100
+  max_transforms: 15
+  policy_values: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/opt_dicts/opt13_10b_class.json'
+  children_info: '/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/results/opt7_class/children/children_values_std_opt13_10b.json'
+policy:
+  files:
+    uspto:
+      - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
+      - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
+filter:
+  files:
+    uspto: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
+stock:
+  files:
+    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5
+

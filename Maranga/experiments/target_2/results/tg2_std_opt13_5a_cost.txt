@@ -1,0 +1,6 @@
+Cost for: 
+/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/results/tg2_result_std_opt13_5a.hdf5
+Number of reactions: 132
+Mean cost: 58.87128495810195
+Standard Deviation: 296.2159785703374
+Invalid routes: 0

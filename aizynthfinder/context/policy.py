@@ -110,7 +110,7 @@ class ExpansionPolicy(ContextCollection):
 
                     
                     # augment policy probability if reaction class is in dict.
-                    if template_code in policy_templates:
+                    if reaction_class in policy_templates:
                         #print('Found template: ', str(reaction_class))
                         
                         # get top scoring molecule

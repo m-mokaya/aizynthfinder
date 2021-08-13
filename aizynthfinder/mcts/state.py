@@ -199,7 +199,8 @@ class State:
         #print('FIStock: ', 0.95*(fraction_in_stock))
         #print('transforms: ', 0.045*(max_transforms_score))
         #print('costs: ', 0.005*(1-np.mean(normalised_costs)))
-        print('Mean Route Cost: ', np.mean(normalised_costs))
+        
+        #print('Mean Route Cost: ', np.mean(normalised_costs))
 
         return score4
 

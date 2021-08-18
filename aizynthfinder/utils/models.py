@@ -1,12 +1,11 @@
 """ Module containing helper routines for using Keras and Tensorflow models
 """
 from __future__ import annotations
-from __future__ import annotations
 import functools
-import numpy as np
 import os
 from typing import TYPE_CHECKING
 
+import numpy as np
 import requests
 import grpc
 import tensorflow as tf
@@ -20,6 +19,7 @@ from tensorflow.keras.metrics import top_k_categorical_accuracy
 from tensorflow.keras.models import load_model as load_keras_model
 
 from aizynthfinder.utils.logging import logger
+from aizynthfinder.utils.exceptions import ExternalModelAPIError
 
 if TYPE_CHECKING:
     from aizynthfinder.utils.type_utils import Any, Union, Callable, List
@@ -106,20 +106,14 @@ class LocalKerasModel:
         return self.model.predict(input_)
 
 
-class ExternalModelAPIError(Exception):
-    """
-    Custom error type to signal failure in External model.
-    """
-
-
 def _log_and_reraise_exceptions(method: Callable) -> Callable:
     @functools.wraps(method)
     def wrapper(*args, **kwargs):
         try:
             return method(*args, **kwargs)
-        except Exception as e:
+        except Exception as err:
             msg = "Error when requesting from tensorflow model API"
-            _logger.error("%s: %s", msg, e)
+            _logger.error("%s: %s", msg, err)
             raise ExternalModelAPIError(msg)
 
     return wrapper
@@ -159,6 +153,7 @@ class ExternalModelViaREST:
         res = self._handle_rest_api_request("GET", self._model_url + "/metadata")
         return res["metadata"]["signature_def"]["signature_def"]["serving_default"]
 
+    # pylint: disable=no-self-use
     @_log_and_reraise_exceptions
     def _handle_rest_api_request(
         self, method: str, url: str, *args: Any, **kwargs: Any
@@ -246,9 +241,9 @@ class ExternalModelViaGRPC:
         if isinstance(inputs, np.ndarray):
             inputs = [inputs]
         tensors = {}
-        for name, fp in zip(self._sig_def["inputs"].keys(), inputs):
+        for name, fp_ in zip(self._sig_def["inputs"].keys(), inputs):
             size = int(self._sig_def["inputs"][name]["tensorShape"]["dim"][1]["size"])
-            tensors[name] = tf.make_tensor_proto(fp, dtype=np.float32, shape=(1, size))
+            tensors[name] = tf.make_tensor_proto(fp_, dtype=np.float32, shape=(1, size))
         return tensors
 
     @staticmethod

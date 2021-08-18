@@ -5,9 +5,9 @@ import abc
 from typing import TYPE_CHECKING
 
 from aizynthfinder.utils.logging import logger
-from aizynthfinder.utils.type_utils import StrDict
 
 if TYPE_CHECKING:
+    from aizynthfinder.utils.type_utils import StrDict
     from aizynthfinder.utils.type_utils import Any, List, Union
 
 
@@ -92,12 +92,10 @@ class ContextCollection(abc.ABC):
     @abc.abstractmethod
     def load(self, *_: Any) -> None:
         """Load an item. Needs to be implemented by a sub-class"""
-        pass
 
     @abc.abstractmethod
     def load_from_config(self, **config: Any) -> None:
         """Load items from a configuration. Needs to be implemented by a sub-class"""
-        pass
 
     def select(self, value: Union[str, List[str]], append: bool = False) -> None:
         """
@@ -141,3 +139,8 @@ class ContextCollection(abc.ABC):
         """Select the first loaded item"""
         if self.items:
             self.select(self.items[0])
+
+    def select_last(self) -> None:
+        """Select the last loaded item"""
+        if self.items:
+            self.select(self.items[-1])

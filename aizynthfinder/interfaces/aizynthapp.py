@@ -54,6 +54,7 @@ class AiZynthApp:
     """
 
     def __init__(self, configfile: str, setup: bool = True) -> None:
+        # pylint: disable=used-before-assignment
         setup_logger(logging.INFO)
         self.finder = AiZynthFinder(configfile=configfile)
         self._input: StrDict = dict()
@@ -240,7 +241,7 @@ class AiZynthApp:
             layout={
                 "border": "1px solid silver",
                 "width": "99%",
-                "height": "300px",
+                "height": "320px",
                 "overflow": "auto",
             }
         )
@@ -308,22 +309,21 @@ class AiZynthApp:
                 self.finder.filter_policy.deselect()
             else:
                 self.finder.filter_policy.select(self._input["policy"].value)
-            self.finder.config.update(
-                **{
-                    "C": self._input["C"].value,
-                    "max_transforms": self._input["max_transforms"].value,
-                    "cutoff_cumulative": self._input["cutoff_cumulative"].value,
-                    "cutoff_number": int(self._input["cutoff_number"].value),
-                    "return_first": self._input["return_first"].value,
-                    "time_limit": self._input["time_limit"].value * 60,
-                    "iteration_limit": self._input["iteration_limit"].value,
-                    "filter_cutoff": self._input["filter_cutoff"].value,
-                    "exclude_target_from_stock": self._input[
-                        "exclude_target_from_stock"
-                    ].value,
-                    "policy_values": self._input["policy_values"].value,
-                }
-            )
+            
+            self.finder.config.properties = {
+                "C": self._input["C"].value,
+                "max_transforms": self._input["max_transforms"].value,
+                "cutoff_cumulative": self._input["cutoff_cumulative"].value,
+                "cutoff_number": int(self._input["cutoff_number"].value),
+                "return_first": self._input["return_first"].value,
+                "time_limit": self._input["time_limit"].value * 60,
+                "iteration_limit": self._input["iteration_limit"].value,
+                "filter_cutoff": self._input["filter_cutoff"].value,
+                "exclude_target_from_stock": self._input[
+                    "exclude_target_from_stock"
+                ].value,
+                "policy_values": self._input["policy_values"].value,
+            }
 
             smiles = self._input["smiles"].value
             print("Setting target molecule with smiles: %s" % smiles)
@@ -361,14 +361,14 @@ class AiZynthApp:
             display(HTML("<H2>Steps"))
             display(self.finder.routes[index]["image"])
 
-    def _toggle_button(self, on) -> None:
+    def _toggle_button(self, on_) -> None:
         for button in self._buttons.values():
-            button.disabled = not on
+            button.disabled = not on_
 
     def _tree_search(self) -> None:
         with self._output["tree_search"]:
             self.finder.tree_search(show_progress=True)
-            print("Tree search completed.")
+            display(HTML("<b>Tree search completed!</b>"))
 
 
 def _get_arguments() -> argparse.Namespace:

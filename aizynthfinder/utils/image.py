@@ -2,6 +2,7 @@
 """
 from __future__ import annotations
 import sys
+import io
 import subprocess
 import os
 import tempfile
@@ -19,6 +20,7 @@ from aizynthfinder.utils.paths import data_path
 if TYPE_CHECKING:
     import networkx as nx
 
+    # pylint: disable=ungrouped-imports
     from aizynthfinder.utils.type_utils import (
         Tuple,
         Any,
@@ -27,6 +29,7 @@ if TYPE_CHECKING:
         Sequence,
         PilImage,
         PilColor,
+        List,
     )
     from aizynthfinder.chem import (
         Molecule,
@@ -43,6 +46,7 @@ def _clean_up_images() -> None:
     global IMAGE_FOLDER
     try:
         shutil.rmtree(IMAGE_FOLDER, ignore_errors=True)
+    # pylint: disable=broad-except
     except Exception:  # noqa Don't care if we fail clean-up
         pass
 
@@ -62,6 +66,41 @@ def molecule_to_image(mol: Molecule, frame_color: PilColor) -> PilImage:
     return draw_rounded_rectangle(cropped_img, frame_color)
 
 
+def molecules_to_images(
+    mols: Sequence[Molecule], frame_colors: Sequence[PilColor]
+) -> List[PilImage]:
+    """
+    Create pretty images of molecules with a colored frame around each one of them.
+
+    The molecules will be resized to be of similar sizes.
+
+    :param mols: the molecules
+    :param frame_colors: the color of the frame for each molecule
+    :return: the produced images
+    """
+    size = 300
+    # Make sanitized copies of all molecules
+    mol_copies = [mol.make_unique() for mol in mols]
+    for mol in mol_copies:
+        mol.sanitize()
+
+    all_mols = Draw.MolsToGridImage(
+        [mol.rd_mol for mol in mol_copies],
+        molsPerRow=len(mols),
+        subImgSize=(size, size),
+    )
+    if not hasattr(all_mols, "crop"):  # Is not a PIL image
+        fileobj = io.BytesIO(all_mols.data)
+        all_mols = Image.open(fileobj)
+
+    images = []
+    for idx, frame_color in enumerate(frame_colors):
+        image_obj = all_mols.crop((size * idx, 0, size * (idx + 1), size))
+        image_obj = crop_image(image_obj)
+        images.append(draw_rounded_rectangle(image_obj, frame_color))
+    return images
+
+
 def crop_image(img: PilImage, margin: int = 20) -> PilImage:
     """
     Crop an image by removing white space around it
@@ -70,6 +109,7 @@ def crop_image(img: PilImage, margin: int = 20) -> PilImage:
     :param margin: padding, defaults to 20
     :return: the cropped image
     """
+    # pylint: disable=invalid-name
     # First find the boundaries of the white area
     x0_lim = img.width
     y0_lim = img.height
@@ -113,6 +153,7 @@ def draw_rounded_rectangle(
     :param arc_size: the size of the corner, defaults to 20
     :return: the new image
     """
+    # pylint: disable=invalid-name
     x0, y0, x1, y1 = img.getbbox()
     x1 -= 1
     y1 -= 1
@@ -142,14 +183,19 @@ def save_molecule_images(
     :return: the filename of the created images
     """
     global IMAGE_FOLDER
+
+    try:
+        images = molecules_to_images(molecules, frame_colors)
+    except Exception:  # noqa
+        images = [
+            molecule_to_image(molecule, frame_color)
+            for molecule, frame_color in zip(molecules, frame_colors)
+        ]
+
     spec = {}
-    for molecule, frame_color in zip(molecules, frame_colors):
-        image_filepath = os.path.join(
-            IMAGE_FOLDER, f"{molecule.inchi_key}_{frame_color}.png"
-        )
-        if not os.path.exists(image_filepath):
-            image_obj = molecule_to_image(molecule, frame_color)
-            image_obj.save(image_filepath)
+    for molecule, image_obj in zip(molecules, images):
+        image_filepath = os.path.join(IMAGE_FOLDER, f"{molecule.inchi_key}.png")
+        image_obj.save(image_filepath)
         spec[molecule] = image_filepath
     return spec
 

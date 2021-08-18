@@ -1,5 +1,63 @@
 # CHANGELOG
 
+## Version 3.0.0  2020-07-26
+
+### Features
+
+- Generalized expansion and filter policies - policies no longer need to be Keras models
+- Updated image generation for synthesis routes
+- Improved code to prune "regeneration reactions" in MCTS (Github issue 38)
+- Reactants are sorted in output from ReactionTree class
+- New arguments to the "aizynthcli" tool
+- Introduce option to return all solved routes from a TreeAnalysis class
+
+### Breaking changes
+
+- Package structure re-factorization
+- Behaviour of RetroReaction, FilterPolicy and ExpansionPolicy classes has been changed
+- Configuration class holding search tree settings is no longer loading settings from yaml-file on instantiation
+
+### Deprecations
+
+- Removed MCTS-specific routines in the TreeAnalysis class
+- Removed code for identifying cycles in ReactionTree
+- Remove JSON interface to AiZynthFinder class
+
+### Bugfixes
+
+- Fixed property assignment when converting MCTS node to ReactionTree
+
+### Trivial changes
+
+- Documentation updates
+- Extensive re-factoring of test cases
+
+## Version 2.6.0 - 2020-06-11 (2020-05-03)
+
+### Features
+
+- Add `AiZynthExpander` class as public interface to single-step reactions
+- Route distance calculations and clustering is now dependent on package `route-distances`
+- Route distance calculations with ML model is now supported
+- Reaction tree objects now has property `is_branched`
+
+
+## Version 2.5.0 - 2020-06-11 (2020-03-30)
+
+### Features
+
+- Introduce an interface for search algorithm working on AND/OR trees
+- The progress bar is now removed upon completion of the tree search
+- Move `ReactionTree` class to a new module (this will not brake backwards compatibility)
+
+### Bug fixes
+
+- Fix for Github issue #28 for a training script
+
+### Trivial changes
+
+- `scikit-learn` is now imported before `tensorflow`, according to Github issue 30
+
 ## Version 2.4.0 - 2020-02-22 (2020-02-22)
 
 

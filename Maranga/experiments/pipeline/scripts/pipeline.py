@@ -2,6 +2,7 @@
 Module to run entire aizynth reaction/transformation assessment pipeline given a .txt file with SMILES. 
 """
 
+from aizynthfinder.aizynthfinder.aizynthfinder import AiZynthExpander
 import os
 import sys
 import argparse
@@ -47,21 +48,26 @@ def run_aiz(input_loc, config_name, output_loc, smiles):
 
     smiles = extract_smiles_from_file(smiles_file)
 
-    expander = AiZynth(configfile=config_file)
-    finder.stock.select('molport')
-    finder.expansion_policy.select('uspto')
-    finder.filter_policy.select('uspto')
+    expander = AiZynthExpander(configfile=config_file)
+    expander.expansion_policy.select('uspto')
+    expander.filter_policy.select('uspto')
 
     results = []
     for smi in smiles:
-        finder.target_smiles = smi
-        finder.tree_search()
-        finder.build_routes()
-        stats = finder.extract_statistics()
-    results.append(stats)
-    return results, AiZynthFinder.routes()
+        reactions = expander.do_expansion(smi)
+        results.append(reactions)
+    
+    all_metadata = []
+    for reactions in results:
+        meta = []
+        for reaction_tuple in reactions:
+            for r in reaction_tuple:
+                meta.append(r.metadata)
+        all_metadata.extend(meta)
 
+    df = pd.DataFrame(all_metadata)
 
-print(run_aiz(args.input, 'config_std.yml', args.output, 'target_smiles.txt')[0])
-print('ROUTES: ')
-print(print(run_aiz(args.input, 'config_std.yml', args.output, 'target_smiles.txt')[1]))
+    return df
+
+print('Job COMPLETE:')
+print(run_aiz(args.input, 'config_std.yml', args.output, 'target_smiles.txt'))

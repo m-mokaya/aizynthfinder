@@ -2,7 +2,6 @@
 Module to run entire aizynth reaction/transformation assessment pipeline given a .txt file with SMILES. 
 """
 
-from aizynthfinder.aizynthfinder.aizynthfinder import AiZynthExpander
 import os
 import sys
 import argparse
@@ -16,6 +15,7 @@ sys.path.append('./utils')
 sys.path.append('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder')
 
 from aizynthfinder.aizynthfinder import AiZynthFinder
+from aizynthfinder.aizynthfinder.aizynthfinder import AiZynthExpander
 
 """
 1. collect arguments

@@ -292,7 +292,6 @@ class Stock(ContextCollection):
         return passes
 
     def _mol_property(self, mol, property_name):
-        print(self.selection)
         values = []
         for key in self.selection:
             try:

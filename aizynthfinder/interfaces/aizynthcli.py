@@ -147,7 +147,7 @@ def _process_multi_smiles(
 
     results = defaultdict(list)
     for smi in smiles:
-        print('SMILES: ', smi)
+        print('CURRENT SMILE: ', smi)
         finder.target_smiles = smi
         finder.prepare_tree()
         search_time = finder.tree_search()
@@ -228,7 +228,6 @@ def main() -> None:
     setup_logger(logging.INFO, file_level_logging)
 
     finder = AiZynthFinder(configfile=args.config)
-    print('finder created')
     _select_stocks(finder, args)
     finder.expansion_policy.select(args.policy or finder.expansion_policy.items[0])
     finder.filter_policy.select(args.filter)

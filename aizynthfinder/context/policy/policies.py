@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 from aizynthfinder.utils.loading import load_dynamic_class
 from aizynthfinder.utils.exceptions import PolicyException
 from aizynthfinder.context.collection import ContextCollection
+from aizynthfinder.utils.policy_augmentation import PolicyValues
+
 from aizynthfinder.context.policy.expansion_strategies import (
     ExpansionStrategy,
     TemplateBasedExpansionStrategy,
@@ -42,6 +44,7 @@ class ExpansionPolicy(ContextCollection):
     def __init__(self, config: Configuration) -> None:
         super().__init__()
         self._config = config
+        self._policy_values = self._config.policy_values
 
     def __call__(
         self, molecules: Sequence[TreeMolecule]
@@ -58,6 +61,7 @@ class ExpansionPolicy(ContextCollection):
         :return: the actions and the priors of those actions
         :raises: PolicyException: if the policy isn't selected
         """
+
         if not self.selection:
             raise PolicyException("No expansion policy selected")
 
@@ -65,10 +69,27 @@ class ExpansionPolicy(ContextCollection):
         all_priors = []
         for name in self.selection:
             possible_actions, priors = self[name].get_actions(molecules)
+            
+            
+            #uses filename parameter to load dict from json. 
+            policy_dict = PolicyValues(self._config.policy_values).from_dict()
+            policy_templates = list(policy_dict.keys())
+
+            max_policy = max(priors)
+
+            for index, (move, prior) in enumerate(zip(possible_actions, priors)):
+                metadata = move.metadata
+                if metadata.get('classification') in policy_templates:
+                    priors[index] += max_policy
+                
+                #print('M: ', move.metadata)
+                #print('P: ', prior)
+
             all_possible_actions.extend(possible_actions)
             all_priors.extend(priors)
             if not self._config.additive_expansion and all_possible_actions:
                 break
+
         return all_possible_actions, all_priors
 
     def load(self, source: ExpansionStrategy) -> None:  # type: ignore

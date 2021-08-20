@@ -28,7 +28,7 @@ def parse_input(input, type):
     """
     Returns list of dictionaries representing each reaction.
     
-    :param: list or list of list reactions as dictionaries. 
+    :param input: list or list of list reactions as dictionaries. 
     :return: list of dictionaries.
     """
     if isinstance(input[0], list):

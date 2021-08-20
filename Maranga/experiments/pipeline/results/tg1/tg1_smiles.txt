@@ -1,0 +1,17 @@
+CN(C)C1CCC(c2c[nH]c3cc(Br)ccc23)C1
+CN(C)C1CCC(c2c[nH]c3ccc(F)cc23)C1
+CN(C)[C@@H]1CC[C@@H](c2c[nH]c3ccc(C#N)cc23)C1
+CN(C)C1CCC(c2c[nH]c3cc(F)ccc23)C1
+CN(C)[C@H]1CC[C@H](c2c[nH]c3ccc(F)cc23)C1
+CN(C)C1CCC(c2c[nH]c3c(Br)cccc23)C1
+CN(C)C1CCC(c2c[nH]c3ccc(Cl)cc23)C1
+CN(C)C1CCC(c2c[nH]c3cccc(Br)c23)C1
+CN(C)[C@@H]1CC[C@H](c2c[nH]c3ccc(C#N)cc23)C1
+CN(C)[C@@H]1CC[C@@H](c2c[nH]c3ccc(F)cc23)C1
+CN(C)C1CCC(c2c[nH]c3ccc(C#N)cc23)C1
+CN(C)[C@H]1CC[C@@H](c2c[nH]c3ccc(F)cc23)C1
+CN(C)[C@H]1CC[C@@H](c2c[nH]c3ccc(C#N)cc23)C1
+CN(C)[C@H]1CC[C@H](c2c[nH]c3ccc(C#N)cc23)C1
+CN(C)C1CCC(c2c[nH]c3cc(Cl)ccc23)C1
+CN(C)C1CCC(c2c[nH]c3ccc(Br)cc23)C1
+CN(C)[C@@H]1CC[C@H](c2c[nH]c3ccc(F)cc23)C1

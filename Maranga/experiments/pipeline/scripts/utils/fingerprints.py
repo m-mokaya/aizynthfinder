@@ -9,16 +9,9 @@ import pandas as pd
 import numpy as np
 import scipy
 
-sys.path.append('../../')
+from . import parse_multismiles as mutils
 
-import Maranga.utils.parse_multismiles as mutils
-import aizynthfinder.context.scoring as scoring
-import aizynthfinder.context.config as con
-
-from aizynthfinder.analysis import ReactionTree
-from rdkit.Chem import rdChemReactions
-from rdkit import DataStructs
-from rdkit.ML.Cluster import Butina
+from aizynthfinder.reactiontree import ReactionTree
 from sklearn.metrics.pairwise import euclidean_distances
 from scipy.spatial.distance import euclidean
 
@@ -203,6 +196,9 @@ def split_sim(r):
     all_distances = []
     e = [i for i in r if i.get('type') == 'explore']
     s = [i for i in r if i.get('type') == 'normal']
+
+    print('Number of "exp" reactions: ', len(e))
+    print('Number of "std" reactions: ', len(s))
 
     for rxn in e:
         rxn_fp = rxn.get('fingerprint')

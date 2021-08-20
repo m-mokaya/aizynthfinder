@@ -112,6 +112,7 @@ class AiZynthFinder:
         :param scorer: a reference to the object used to score the nodes
         :raises ValueError: if the search tree not initialized
         """
+        
         if not self.tree:
             raise ValueError("Search tree not initialized")
 
@@ -139,6 +140,7 @@ class AiZynthFinder:
 
         :raises ValueError: if the target molecule was not set
         """
+        
         if not self.target_mol:
             raise ValueError("No target molecule set")
 
@@ -158,6 +160,7 @@ class AiZynthFinder:
         :param show_progress: if True, shows a progress bar
         :return: the time past in seconds
         """
+        
         if not self.tree:
             self.prepare_tree()
         # This is for type checking, prepare_tree is creating it.
@@ -179,6 +182,7 @@ class AiZynthFinder:
 
             try:
                 is_solved = self.tree.one_iteration()
+                
             except StopIteration:
                 break
 

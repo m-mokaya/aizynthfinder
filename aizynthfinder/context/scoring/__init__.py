@@ -11,4 +11,5 @@ from aizynthfinder.context.scoring.scorers import (
     AverageTemplateOccurrenceScorer,
     PriceSumScorer,
     RouteCostScorer,
+    USPTOModelPolicyProbabilityScorer,
 )

@@ -159,7 +159,7 @@ class USPTOModelPolicyProbabilityScorer(Scorer):
     def __repr__(self) -> str:
         return 'policy preduction value'
     
-    def _score_node(self, node: node) -> float:
+    def _score_node(self, node: MctsNode) -> float:
         reactions, _ = node.tree.route_to_node(node)
         if not reactions:
             return 0.0

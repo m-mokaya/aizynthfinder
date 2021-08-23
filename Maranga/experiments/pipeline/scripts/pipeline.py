@@ -416,7 +416,8 @@ Main Function
 """
 
 def main(args):
-    """print('Starting "std" run..')
+    '''
+    print('Starting "std" run..')
     # Run AiZ in Std mode
     std_df = run_aiz(args.input, 'config_std.yml', args.output, f'std_results_{args.run}.hdf5', args.nproc)
     print('done.')
@@ -424,14 +425,14 @@ def main(args):
     print('Starting "exp" run..')
     # run AiZ in exp mode
     exp_df = run_aiz(args.input, 'config_exp.yml', args.output, f'exp_results_{args.run}.hdf5', args.nproc)
-    print('done.')"""
+    print('done.')'''
 
-    std_df = pd.read_hdf('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/results/std_results_1.hdf5', 'table')
+    std_df = pd.read_hdf(os.path.join('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/tg3/results/', 'std_results_1.hdf5'), 'table')
     print('std route costs: ')
     std_costs = reaction_costs(std_df)
 
     print('\n')
-    exp_df = pd.read_hdf('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/results/exp_results_1.hdf5', 'table')
+    exp_df = pd.read_hdf(os.path.join('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/tg3/results/', 'exp_results_1.hdf5'), 'table')
     print('exp route costs: ')
     exp_costs = reaction_costs(exp_df)
 
@@ -456,13 +457,13 @@ def main(args):
     
     save_opt_dict(opt_dict, args.output, 'opt'+args.run+'_class.json')
 
-    with open('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_std.yml', 'r') as f:
+    with open(os.path.join(args.input, 'config_std.yml'), 'r') as f:
         data = yaml.safe_load(f)
     
     # change policy values 
     data["properties"]["policy_values"] = str(os.path.join(args.output,f'opt{args.run}_class.json'))
 
-    with open('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_opt.yml', 'w') as f:
+    with open(os.path.join(args.input, 'config_opt.yml'), 'w') as f:
         yaml.safe_dump(data, f)
     
     print('\n')
@@ -498,7 +499,7 @@ def main(args):
 
     # how many transformations to test
     c = sum(1 if i > 0 else 0 for i in s_difference.values())
-    counts = 3
+    counts = len(s_difference)
     print('Number of transformations in random test: ', len(s_difference))
 
     all_classes = extract_templates()

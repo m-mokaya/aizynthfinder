@@ -35,7 +35,7 @@ from collections import defaultdict
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', required=True, help='folder for input files')
 parser.add_argument('--output', required=True, help='folder for output files')
-parser.add_argument('--threshold', required=True, help='cost thresgold for "cheap" reactions')
+parser.add_argument('--threshold', required=False, help='cost thresgold for "cheap" reactions')
 parser.add_argument('--run', required=True, help='job iteration')
 parser.add_argument('--nproc', required=False, help='number of cores to run job')
 args = parser.parse_args()
@@ -341,7 +341,7 @@ def reaction_costs(hdf):
 """
 Run Top vs Random
 """
-def run_top_reactions(args, trans, random):
+def run_top_reactions(args, trans, random, threshold):
 
     o_mean = []
     o_sd = []
@@ -352,28 +352,29 @@ def run_top_reactions(args, trans, random):
         for i in opt_l:
             opt_dict[i] = 10.0
 
-        loc = os.path.join(args.output, f'opt1_class_o{index}.json')
+        loc = os.path.join(args.output, f'opt{args.run}_class_{threshold}_o{index}.json')
 
         with open(loc, 'w') as f:
             json.dump(opt_dict, f)
         
         #create new config file
-        with open('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_opt.yml', 'r') as f:
+        with open(os.path.join(args.input, 'config_std.yml'), 'r') as f:
             data = yaml.safe_load(f)
         
         # change policy values 
-        data["properties"]["policy_values"] = str(loc)
+        data["properties"]["policy_values"] = loc
 
-        with open(f'/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_opt_o{index}.yml', 'w') as f:
+        with open(os.path.join(args.input, f'config_opt{args.run}_{threshold}_o{index}.yml'), 'w') as f:
             yaml.safe_dump(data, f)
         
         print('Starting "opt" run..')
-        opt_df = run_aiz(args.input, f'config_opt_o{index}.yml', args.output, f'opt_results_{args.run}_o{index}.hdf5', args.nproc)
+        opt_df = run_aiz(args.input, f'config_opt{args.run}_{threshold}_o{index}.yml', args.output, f'opt_results_{args.run}_{threshold}_o{index}.hdf5', args.nproc)
         print('Done.')
 
         o_costs = reaction_costs(opt_df)
         o_mean.append(np.mean(o_costs))
         o_sd.append(np.std(o_costs))
+        print(f'Run {index} of threshold {threshold} mean ({np.mean(o_costs)} and SD {np.std(o_costs)}.')
 
     r_mean = []
     r_sd = []
@@ -384,29 +385,29 @@ def run_top_reactions(args, trans, random):
         for i in opt_l:
             opt_dict[i] = 10.0
 
-        loc = os.path.join(args.output, f'opt1_class_r{index}.json')
+        loc = os.path.join(args.output, f'opt{args.run}_class_{threshold}_r{index}.json')
 
         with open(loc, 'w') as f:
             json.dump(opt_dict, f)
         
         #create new config file
-        with open('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_opt.yml', 'r') as f:
+        with open(os.path.join(args.input, 'config_std.yml'), 'r') as f:
             data = yaml.safe_load(f)
         
         # change policy values 
         data["properties"]["policy_values"] = str(loc)
 
-        with open(f'/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_opt_r{index}.yml', 'w') as f:
+        with open(os.path.join(args.input, f'config_opt{args.run}_{threshold}_r{index}.yml'), 'w') as f:
             yaml.safe_dump(data, f)
         
         print('Starting "opt" run..')
-        opt_df = run_aiz(args.input, f'config_opt_r{index}.yml', args.output, f'opt_results_{args.run}_r{index}.hdf5', args.nproc)
+        opt_df = run_aiz(args.input, f'config_opt{args.run}_{threshold}_r{index}.yml', args.output, f'opt_results_{args.run}_{threshold}_r{index}.hdf5', args.nproc)
         print('Done.')
 
         r_costs = reaction_costs(opt_df)
         r_mean.append(np.mean(r_costs))
         r_sd.append(np.std(r_costs))
-        print(f'Run {index} mean ({np.mean(r_costs)} and SD {np.std(r_costs)}.')
+        print(f'Run {index}  of threshold {threshold} mean ({np.mean(r_costs)} and SD {np.std(r_costs)}.')
 
     print('done calculting means')
     return o_mean, o_sd, r_mean, r_sd
@@ -416,6 +417,11 @@ Main Function
 """
 
 def main(args):
+
+    """
+    1. Run AiZ in explore and normal modes
+    """
+
     print('Starting "std" run..')
     # Run AiZ in Std mode
     std_df = run_aiz(args.input, 'config_std.yml', args.output, f'std_results_{args.run}.hdf5', args.nproc)
@@ -426,106 +432,125 @@ def main(args):
     exp_df = run_aiz(args.input, 'config_exp.yml', args.output, f'exp_results_{args.run}.hdf5', args.nproc)
     print('done.')
 
-    std_df = pd.read_hdf('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/results/std_results_1.hdf5', 'table')
+    std_df = pd.read_hdf(os.path.join(args.output, 'std_results_1.hdf5'), 'table')
     print('std route costs: ')
     std_costs = reaction_costs(std_df)
 
     print('\n')
-    exp_df = pd.read_hdf('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/results/exp_results_1.hdf5', 'table')
+    exp_df = pd.read_hdf(os.path.join(args.output, 'exp_results_1.hdf5'), 'table')
     print('exp route costs: ')
     exp_costs = reaction_costs(exp_df)
 
-    max_std_cost = max(std_costs)
-    threshold = max_std_cost/100*3
-    print('\n')
-    print('Cost threshold: ', args.threshold)
-    
-    print('\n')
-    print('Calculating trns to optimise.')
 
-    # transformations to optimise
-    transformations = novel_pathways(std_df, exp_df, args.output, args.threshold)
-    print('Transformations: ', transformations)
-    print('Number of transformations: ', len(transformations))
-    print('Done.')
+    """
+    2. Determine which transformations given cost threshold.
+    """
 
-    #make new optimisation dict
-    opt_dict = {}
-    for i in transformations:
-        opt_dict[i] = 10.0
-    
-    save_opt_dict(opt_dict, args.output, 'opt'+args.run+'_class.json')
+    threshold_means = []
+    threshold_sd = []
 
-    with open('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_std.yml', 'r') as f:
-        data = yaml.safe_load(f)
-    
-    # change policy values 
-    data["properties"]["policy_values"] = str(os.path.join(args.output,f'opt{args.run}_class.json'))
+    for i in np.arange(5, np.mean(std_costs), 5):
+        print('\n')
+        print(f'Threshold range: (5-{np.mean(std_costs)})')
+        threshold = i
 
-    with open('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/config_opt.yml', 'w') as f:
-        yaml.safe_dump(data, f)
-    
-    print('\n')
-    print('Starting "opt" run..')
-    opt_df = run_aiz(args.input, 'config_opt.yml', args.output, f'opt_results_{args.run}.hdf5', args.nproc)
-    print('Done.')
+        print('\n')
+        print('Cost threshold: ', threshold)
+        
+        print('\n')
+        print('Calculating transformations to optimise.')
 
-    print('\n')
-    print('Calculating opt costs...')
-    reaction_costs(opt_df)
+        # transformations to optimise
+        transformations = novel_pathways(std_df, exp_df, args.output, threshold)
+        print('Transformations: ', transformations)
+        print('Number of transformations: ', len(transformations))
 
-    print('Sorting trns...')
-    # sort the transformations by use in std vs. opt
-    difference = find_best_transformations(std_df, opt_df, opt_dict.keys())
-    s_difference = dict(sorted(difference.items(), key=lambda kv: kv[1], reverse=True))
+        if len(transformations) == 0:
+            print('0 transformations optimised, increasing threshold.')
+            continue
 
-    print('Plotting trns..')
-    fig1 = plt.figure(1)
-    x = s_difference.keys()
-    y = s_difference.values()
-    plt.plot(x, y)
-    plt.xticks(rotation=20)
-    plt.xlabel('Template')
-    plt.ylabel('Differnce in template useage (opt - std) / %')
-    plt.tight_layout()
-    plt.savefig(os.path.join(args.output, 'percentage_difference.png'))
-    plt.show()
+        #make new optimisation dict
+        opt_dict = {}
+        for i in transformations:
+            opt_dict[i] = 10.0
+        
+        save_opt_dict(opt_dict, args.output, f'opt{args.run}_class_{threshold}.json')
+        print('\n')
+        print('Optimisation dict saved to: ', os.path.join(args.output, f'opt'+args.run+'_class_{threshold}.json'))
 
-    print('\n')
-    print('Ordered transformations:')
-    for k, v in s_difference.items():
-        print(f'{k}: {v}')
+        with open(os.path.join(args.input, 'config_std.yml'), 'r') as f:
+            data = yaml.safe_load(f)
+        
+        # change policy values 
+        data["properties"]["policy_values"] = str(os.path.join(args.output,f'opt{args.run}_class_{threshold}.json'))
 
-    # how many transformations to test
-    c = sum(1 if i > 0 else 0 for i in s_difference.values())
-    counts = len(s_difference)
-    print('Number of transformations in random test: ', len(s_difference))
+        with open(os.path.join(args.input, f'config_opt{args.run}_{threshold}.yml'), 'w') as f:
+            yaml.safe_dump(data, f)
+        
+        print('\n')
+        print(f'Starting "opt" ({args.run}_{threshold}) run..')
+        opt_df = run_aiz(args.input, f'config_opt{args.run}_{threshold}.yml', args.output, f'opt{args.run}_results_{threshold}.hdf5', args.nproc)
+        print('Done.')
 
-    all_classes = extract_templates()
-    print('Total # transformations: ', len(all_classes))
-    
-    rnd_opt = rnd.sample(all_classes, counts)
-    top_opt = list(s_difference.values())[:counts]
-    
-    print('\n')
-    print('Transformations to optimse: ', top_opt)
-    print('Random Trans to opt: ', rnd_opt)
+        print('\n')
+        print('Calculating opt costs...')
+        c = reaction_costs(opt_df)
+        threshold_means.append(np.mean(c))
+        threshold_sd.append(np.std(c))
 
-    o_m, o_sd, r_m, r_sd = run_top_reactions(args, top_opt, rnd_opt)
-    
-    #plot figure
-    fig4 = plt.figure(4)
-    x = np.arange(1, counts+1, 1)
-    plt.plot(x, o_m, label='OPT mean')
-    plt.plot(x, o_sd, label='OPT SD')
-    plt.plot(x, r_m, label='RND mean')
-    plt.plot(x, r_sd, label='RND SD')
-    plt.xlabel('# transformations optimised')
-    plt.ylabel('Route Cost')
-    plt.tight_layout()
-    plt.legend()
-    plt.savefig(os.path.join(args.output, 'random_vs_opt.png'))
-    plt.show()
+        print('\n')
+        print('Sorting trns...')
+        # sort the transformations by use in std vs. opt
+        difference = find_best_transformations(std_df, opt_df, opt_dict.keys())
+        s_difference = dict(sorted(difference.items(), key=lambda kv: kv[1], reverse=True))
+
+        print('Plotting trns..')
+        fig1 = plt.figure(1)
+        x = s_difference.keys()
+        y = s_difference.values()
+        plt.plot(x, y)
+        plt.xticks(rotation=20)
+        plt.xlabel('Template')
+        plt.ylabel('Differnce in template useage (opt - std) / %')
+        plt.tight_layout()
+        plt.savefig(os.path.join(args.output, f'trans_%_difference_{threshold}.png'))
+        plt.show()
+
+        print('\n')
+        print('Ordered transformations:')
+        for k, v in s_difference.items():
+            print(f'{k}: {v}')
+
+        # how many transformations to test
+        c = sum(1 if i > 0 else 0 for i in s_difference.values())
+        counts = len(s_difference)
+        print('Number of transformations in random test: ', len(s_difference))
+
+        all_classes = extract_templates()
+        print('Total # transformations: ', len(all_classes))
+        
+        rnd_opt = rnd.sample(all_classes, counts)
+        top_opt = list(s_difference.keys())[:counts]
+        
+        print('\n')
+        print('Transformations to optimse: ', top_opt)
+        print('Random Trans to opt: ', rnd_opt)
+
+        o_m, o_sd, r_m, r_sd = run_top_reactions(args, top_opt, rnd_opt, threshold)
+        
+        #plot figure
+        fig4 = plt.figure(4)
+        x = np.arange(1, counts+1, 1)
+        plt.plot(x, o_m, label='OPT mean')
+        plt.plot(x, o_sd, label='OPT SD')
+        plt.plot(x, r_m, label='RND mean')
+        plt.plot(x, r_sd, label='RND SD')
+        plt.xlabel('# transformations optimised')
+        plt.ylabel('Route Cost')
+        plt.tight_layout()
+        plt.legend()
+        plt.savefig(os.path.join(args.output, f'random_vs_opt_{threshold}.png'))
+        plt.show()
 
     print('JOB COMPLETE')
 

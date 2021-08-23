@@ -416,7 +416,7 @@ Main Function
 """
 
 def main(args):
-    """print('Starting "std" run..')
+    print('Starting "std" run..')
     # Run AiZ in Std mode
     std_df = run_aiz(args.input, 'config_std.yml', args.output, f'std_results_{args.run}.hdf5', args.nproc)
     print('done.')
@@ -424,7 +424,7 @@ def main(args):
     print('Starting "exp" run..')
     # run AiZ in exp mode
     exp_df = run_aiz(args.input, 'config_exp.yml', args.output, f'exp_results_{args.run}.hdf5', args.nproc)
-    print('done.')"""
+    print('done.')
 
     std_df = pd.read_hdf('/data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/test_1/results/std_results_1.hdf5', 'table')
     print('std route costs: ')
@@ -498,7 +498,7 @@ def main(args):
 
     # how many transformations to test
     c = sum(1 if i > 0 else 0 for i in s_difference.values())
-    counts = 3
+    counts = len(s_difference)
     print('Number of transformations in random test: ', len(s_difference))
 
     all_classes = extract_templates()

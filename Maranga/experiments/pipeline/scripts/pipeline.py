@@ -25,7 +25,7 @@ import utils.parse_multismiles as mutils
 import utils.fingerprints as fings 
 
 from aizynthfinder.reactiontree import ReactionTree
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 
 """
@@ -157,16 +157,21 @@ def novel_pathways(std_results, exp_results, output_loc, threshold):
 
     print('Proportion Novel Routes: ', (num_novel/len(largest))*100)
 
+    combos = list(zip(largest, lengths))
+    weight_counter = Counter(combos)
+
+    weights = [weight_counter[(largest[i], lengths[i])] for i, _ in enumerate(largest)]
+
     print('Plotting novelty..')
-    fig1 = plt.figure(2)
-    plt.scatter(largest, lengths)
+    fig1 = plt.figure()
+    plt.scatter(largest, lengths, s=weights)
     plt.xlabel('Jaccard Similarity')
     plt.ylabel('Route Length')
     plt.tight_layout()
     plt.savefig(os.path.join(args.output, 'reaction_novelty.png'))
     plt.show()
 
-    fig1 = plt.figure(3)
+    fig1 = plt.figure()
     plt.hist(all_distances)
     plt.xlabel('Route distance')
     plt.ylabel('Density')
@@ -449,7 +454,7 @@ def main(args):
     threshold_means = []
     threshold_sd = []
 
-    for i in np.arange(5, np.mean(std_costs), 5):
+    for ind, i in enumerate(np.arange(5, np.mean(std_costs), 5)):
         print('\n')
         print(f'Threshold range: (5-{np.mean(std_costs)})')
         threshold = i
@@ -505,13 +510,14 @@ def main(args):
         s_difference = dict(sorted(difference.items(), key=lambda kv: kv[1], reverse=True))
 
         print('Plotting trns..')
-        fig1 = plt.figure(1)
-        x = s_difference.keys()
-        y = s_difference.values()
-        plt.plot(x, y)
+        fig1 = plt.figure()
+
+        x_vals = s_difference.keys()
+        y_vals = [s_difference.get(i) for i in x_vals]
+        plt.plot(x_vals, y_vals)
         plt.xticks(rotation=20)
         plt.xlabel('Template')
-        plt.ylabel('Differnce in template useage (opt - std) / %')
+        plt.ylabel('Difference in template useage (opt - std) / %')
         plt.tight_layout()
         plt.savefig(os.path.join(args.output, f'trans_%_difference_{threshold}.png'))
         plt.show()
@@ -539,7 +545,7 @@ def main(args):
         o_m, o_sd, r_m, r_sd = run_top_reactions(args, top_opt, rnd_opt, threshold)
         
         #plot figure
-        fig4 = plt.figure(4)
+        fig4 = plt.figure()
         x = np.arange(1, counts+1, 1)
         plt.plot(x, o_m, label='OPT mean')
         plt.plot(x, o_sd, label='OPT SD')

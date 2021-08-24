@@ -1,0 +1,21 @@
+filter:
+  files:
+    uspto: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_filter_model.hdf5
+policy:
+  files:
+    uspto:
+    - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_model.hdf5
+    - /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/uspto_templates.hdf5
+properties:
+  C: 1.4
+  children_info: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/target_2/children_info.json
+  cutoff_cumulative: 0.995
+  cutoff_number: 50
+  iteration_limit: 100
+  max_transforms: 12
+  policy_values: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/Maranga/experiments/pipeline/results/tg2/results/opt1_class_75.0_o5.json
+  return_first: false
+  time_limit: 120
+stock:
+  files:
+    molport: /data/localhost/not-backed-up/mokaya/exscientia/aizynthfinder/aizynthfinder/data/molport_blocks_stock.hdf5

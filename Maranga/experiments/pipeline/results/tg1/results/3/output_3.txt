@@ -1,0 +1,18 @@
+STD & EXP runs.STD Route:
+Mean: 40.2273429724364
+SD: 64.55675151369272
+
+EXP Route:
+Mean: 42.751651938785024
+SD: 94.62960730027243
+
+Transformations & Thresholds
+Threshold range: (5-40.2273429724364)
+Cost threshold: 5
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-40.2273429724364)
+Cost threshold: 10
+Transformations to optimise: ['Reductive amination', 'N-substitution with alkyl-X', 'Unassigned', 'Halogenation', 'Other functional group interconversion', 'Other deprotections']
+Number of transformations: 6

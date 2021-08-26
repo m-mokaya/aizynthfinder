@@ -1,0 +1,43 @@
+STD & EXP runs.STD Route:
+Mean: 206.47759199025555
+SD: 200.7879177130319
+
+EXP Route:
+Mean: 1510.960886686926
+SD: 3938.4828247399073
+
+Transformations & Thresholds
+Threshold range: (5-206.47759199025555)
+Cost threshold: 5
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-206.47759199025555)
+Cost threshold: 10
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-206.47759199025555)
+Cost threshold: 15
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-206.47759199025555)
+Cost threshold: 20
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-206.47759199025555)
+Cost threshold: 25
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-206.47759199025555)
+Cost threshold: 30
+Transformations to optimise: []
+Number of transformations: 0
+0 transformations optimised, increasing threshold.
+Threshold range: (5-206.47759199025555)
+Cost threshold: 35
+Transformations to optimise: ['Halogenation', 'O-acylation to ester', 'Unassigned']
+Number of transformations: 3

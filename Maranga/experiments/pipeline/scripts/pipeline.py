@@ -358,7 +358,7 @@ def run_top_reactions(args, trans, random, threshold):
         for i in opt_l:
             opt_dict[i] = 10.0
 
-        loc = os.path.join(args.output, f'opts/opt{args.run}_class_{threshold}_o{index}.json')
+        loc = os.path.join(args.output, f'opts/opt{args.run}_class_{int(threshold)}_o{index}.json')
 
         with open(loc, 'w') as f:
             json.dump(opt_dict, f)
@@ -370,23 +370,23 @@ def run_top_reactions(args, trans, random, threshold):
         # change policy values 
         data["properties"]["policy_values"] = loc
 
-        with open(os.path.join(args.input, f'configs/config_opt{args.run}_{threshold}_o{index}.yml'), 'w') as f:
+        with open(os.path.join(args.input, f'configs/config_opt{args.run}_{int(threshold)}_o{index}.yml'), 'w') as f:
             yaml.safe_dump(data, f)
         
         print('Starting "opt" run..')
-        opt_df = run_aiz(args.input, f'configs/config_opt{args.run}_{threshold}_o{index}.yml', args.output, f'hdfs/opt_results_{args.run}_{threshold}_o{index}.hdf5', args.nproc)
+        opt_df = run_aiz(args.input, f'configs/config_opt{args.run}_{int(threshold)}_o{index}.yml', args.output, f'hdfs/opt_results_{args.run}_{int(threshold)}_o{index}.hdf5', args.nproc)
         print('Done.')
 
         o_costs = reaction_costs(opt_df)
         o_mean.append(np.mean(o_costs))
         o_sd.append(np.std(o_costs))
-        print(f'Run {index} of threshold {threshold}. Mean: {np.mean(o_costs)} and SD: {np.std(o_costs)}.')
+        print(f'Run {index} of threshold {int(threshold)}. Mean: {np.mean(o_costs)} and SD: {np.std(o_costs)}.')
 
     r_av_mean = []
     r_av_sd = []
 
-    for y, item in emumerate(random)):
-    print(f'Random iteration {y}.')
+    for y, item in emumerate(random):
+        print(f'Random iteration {y}.')
         r_mean = []
         r_sd = []
         for index2 in range(1, len(item)+1):
@@ -396,7 +396,7 @@ def run_top_reactions(args, trans, random, threshold):
             for i in opt_l:
                 opt_dict[i] = 10.0
 
-            loc = os.path.join(args.output, f'opts/opt{args.run}_class_{threshold}_r{index2}.json')
+            loc = os.path.join(args.output, f'opts/opt{args.run}_class_{int(threshold)}_r{index2}.json')
 
             with open(loc, 'w') as f:
                 json.dump(opt_dict, f)
@@ -408,17 +408,17 @@ def run_top_reactions(args, trans, random, threshold):
             # change policy values 
             data["properties"]["policy_values"] = str(loc)
 
-            with open(os.path.join(args.input, f'configs/config_opt{args.run}_{threshold}_r{index2}.yml'), 'w') as f:
+            with open(os.path.join(args.input, f'configs/config_opt{args.run}_{int(threshold)}_r{index2}.yml'), 'w') as f:
                 yaml.safe_dump(data, f)
             
             print('Starting "opt" run..')
-            opt_df = run_aiz(args.input, f'configs/config_opt{args.run}_{threshold}_r{index2}.yml', args.output, f'hdfs/opt_results_{args.run}_{threshold}_r{index2}.hdf5', args.nproc)
+            opt_df = run_aiz(args.input, f'configs/config_opt{args.run}_{int(threshold)}_r{index2}.yml', args.output, f'hdfs/opt_results_{args.run}_{int(threshold)}_r{index2}.hdf5', args.nproc)
             print('Done.')
 
             r_costs = reaction_costs(opt_df)
             r_mean.append(np.mean(r_costs))
             r_sd.append(np.std(r_costs))
-            print(f'Run {index2}  of threshold {threshold}. Mean: {np.mean(r_costs)} and SD: {np.std(r_costs)}.')
+            print(f'Run {index2}  of threshold {int(threshold)}. Mean: {np.mean(r_costs)} and SD: {np.std(r_costs)}.')
         
         r_av_mean.append(r_mean)
         r_av_sd.append(r_sd)
@@ -442,7 +442,7 @@ def main(args):
     """
     1. Run AiZ in explore and normal modes
     """
-
+    '''
     print('Starting "std" run..')
     # Run AiZ in Std mode
     std_df = run_aiz(args.input, 'config_std.yml', args.output, f'hdfs/std_results_{args.run}.hdf5', args.nproc)
@@ -452,13 +452,13 @@ def main(args):
     # run AiZ in exp mode
     exp_df = run_aiz(args.input, 'config_exp.yml', args.output, f'hdfs/exp_results_{args.run}.hdf5', args.nproc)
     print('done.')
-
-    std_df = pd.read_hdf(os.path.join(args.output, 'hdfs/std_results_1.hdf5'), 'table')
+    '''
+    std_df = pd.read_hdf(os.path.join(args.output, f'hdfs/std_results_{args.run}.hdf5'), 'table')
     print('std route costs: ')
     std_costs = reaction_costs(std_df)
 
     print('\n')
-    exp_df = pd.read_hdf(os.path.join(args.output, 'hdfs/exp_results_1.hdf5'), 'table')
+    exp_df = pd.read_hdf(os.path.join(args.output, f'hdfs/exp_results_{args.run}.hdf5'), 'table')
     print('exp route costs: ')
     exp_costs = reaction_costs(exp_df)
 
@@ -492,7 +492,7 @@ def main(args):
 
         print('\n')
         print('Cost threshold: ', threshold)
-        ofile.write(f'Cost threshold: {threshold}\n')
+        ofile.write(f'Cost threshold: {int(threshold)}\n')
 
         print('\n')
         print('Calculating transformations to optimise.')
@@ -515,22 +515,22 @@ def main(args):
         for i in transformations:
             opt_dict[i] = 10.0
         
-        save_opt_dict(opt_dict, args.output, f'opt{args.run}_class_{threshold}.json')
+        save_opt_dict(opt_dict, args.output, f'opt{args.run}_class_{int(threshold)}.json')
         print('\n')
-        print('Optimisation dict saved to: ', os.path.join(args.output, f'opts/opt'+args.run+'_class_{threshold}.json'))
+        print('Optimisation dict saved to: ', os.path.join(args.output, f'opts/opt'+args.run+'_class_{int(threshold)}.json'))
 
         with open(os.path.join(args.input, 'config_std.yml'), 'r') as f:
             data = yaml.safe_load(f)
         
         # change policy values 
-        data["properties"]["policy_values"] = str(os.path.join(args.output,f'opts/opt{args.run}_class_{threshold}.json'))
+        data["properties"]["policy_values"] = str(os.path.join(args.output,f'opts/opt{args.run}_class_{int(threshold)}.json'))
 
-        with open(os.path.join(args.input, f'configs/config_opt{args.run}_{threshold}.yml'), 'w') as f:
+        with open(os.path.join(args.input, f'configs/config_opt{args.run}_{int(threshold)}.yml'), 'w') as f:
             yaml.safe_dump(data, f)
         
         print('\n')
-        print(f'Starting "opt" ({args.run}_{threshold}) run..')
-        opt_df = run_aiz(args.input, f'configs/config_opt{args.run}_{threshold}.yml', args.output, f'hdfs/opt{args.run}_results_{threshold}.hdf5', args.nproc)
+        print(f'Starting "opt" ({args.run}_{int(threshold)}) run..')
+        opt_df = run_aiz(args.input, f'configs/config_opt{args.run}_{int(threshold)}.yml', args.output, f'hdfs/opt{args.run}_results_{int(threshold)}.hdf5', args.nproc)
         print('Done.')
 
         print('\n')
@@ -539,7 +539,7 @@ def main(args):
 
 
         ofile.write('\n')
-        ofile.write(f'OPT (threshold: {threshold}) costs\n')
+        ofile.write(f'OPT (threshold: {int(threshold)}) costs\n')
         ofile.write(f'Mean: {np.mean(opt_costs)}\n')
         ofile.write(f'SD: {np.std(opt_costs)}\n')
 
@@ -562,7 +562,7 @@ def main(args):
         plt.xlabel('Template')
         plt.ylabel('Difference in template useage (opt - std) / %')
         plt.tight_layout()
-        plt.savefig(os.path.join(args.output, f'images/trans_%_difference_{threshold}.png'))
+        plt.savefig(os.path.join(args.output, f'images/trans_%_difference_{int(threshold)}.png'))
         plt.show()
 
         print('\n')
@@ -601,7 +601,7 @@ def main(args):
         plt.ylabel('Route Cost')
         plt.tight_layout()
         plt.legend()
-        plt.savefig(os.path.join(args.output, f'images/random_vs_opt_{threshold}.png'))
+        plt.savefig(os.path.join(args.output, f'images/random_vs_opt_{int(threshold)}.png'))
         plt.show()
 
     fig5 = plt.figure()

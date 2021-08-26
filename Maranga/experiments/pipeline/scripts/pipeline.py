@@ -370,11 +370,11 @@ def run_top_reactions(args, trans, random, threshold):
         # change policy values 
         data["properties"]["policy_values"] = loc
 
-        with open(os.path.join(args.input, f'{args.run}/configs/config_opt{args.run}_{int(threshold)}_o{index}.yml'), 'w') as f:
+        with open(os.path.join(args.input, f'results/{args.run}/configs/config_opt{args.run}_{int(threshold)}_o{index}.yml'), 'w') as f:
             yaml.safe_dump(data, f)
         
         print('Starting "opt" run..')
-        opt_df = run_aiz(args.input, f'{args.run}/configs/config_opt{args.run}_{int(threshold)}_o{index}.yml', args.output, f'hdfs/opt_results_{args.run}_{int(threshold)}_o{index}.hdf5', args.nproc)
+        opt_df = run_aiz(args.input, f'results/{args.run}/configs/config_opt{args.run}_{int(threshold)}_o{index}.yml', args.output, f'hdfs/opt_results_{args.run}_{int(threshold)}_o{index}.hdf5', args.nproc)
         print('Done.')
 
         o_costs = reaction_costs(opt_df)
@@ -408,11 +408,11 @@ def run_top_reactions(args, trans, random, threshold):
             # change policy values 
             data["properties"]["policy_values"] = str(loc)
 
-            with open(os.path.join(args.input, f'{args.run}/configs/config_opt{args.run}_{int(threshold)}_r{index2}.yml'), 'w') as f:
+            with open(os.path.join(args.input, f'results/{args.run}/configs/config_opt{args.run}_{int(threshold)}_r{index2}.yml'), 'w') as f:
                 yaml.safe_dump(data, f)
             
             print('Starting "opt" run..')
-            opt_df = run_aiz(args.input, f'{args.run}/configs/config_opt{args.run}_{int(threshold)}_r{index2}.yml', args.output, f'hdfs/opt_results_{args.run}_{int(threshold)}_r{index2}.hdf5', args.nproc)
+            opt_df = run_aiz(args.input, f'results/{args.run}/configs/config_opt{args.run}_{int(threshold)}_r{index2}.yml', args.output, f'hdfs/opt_results_{args.run}_{int(threshold)}_r{index2}.hdf5', args.nproc)
             print('Done.')
 
             r_costs = reaction_costs(opt_df)
@@ -525,12 +525,12 @@ def main(args):
         # change policy values 
         data["properties"]["policy_values"] = str(os.path.join(args.output,f'opts/opt{args.run}_class_{int(threshold)}.json'))
 
-        with open(os.path.join(args.input, f'{args.run}/configs/config_opt{args.run}_{int(threshold)}.yml'), 'w') as f:
+        with open(os.path.join(args.input, f'results/{args.run}/configs/config_opt{args.run}_{int(threshold)}.yml'), 'w') as f:
             yaml.safe_dump(data, f)
         
         print('\n')
         print(f'Starting "opt" ({args.run}_{int(threshold)}) run..')
-        opt_df = run_aiz(args.input, f'{args.run}/configs/config_opt{args.run}_{int(threshold)}.yml', args.output, f'hdfs/opt{args.run}_results_{int(threshold)}.hdf5', args.nproc)
+        opt_df = run_aiz(args.input, f'results/{args.run}/configs/config_opt{args.run}_{int(threshold)}.yml', args.output, f'hdfs/opt{args.run}_results_{int(threshold)}.hdf5', args.nproc)
         print('Done.')
 
         print('\n')

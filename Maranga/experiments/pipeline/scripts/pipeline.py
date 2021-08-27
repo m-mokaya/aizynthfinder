@@ -385,7 +385,7 @@ def run_top_reactions(args, trans, random, threshold):
     r_av_mean = []
     r_av_sd = []
 
-    for y, item in emumerate(random):
+    for y, item in enumerate(random):
         print(f'Random iteration {y}.')
         r_mean = []
         r_sd = []
@@ -515,7 +515,7 @@ def main(args):
         for i in transformations:
             opt_dict[i] = 10.0
         
-        save_opt_dict(opt_dict, args.output, f'opt{args.run}_class_{int(threshold)}.json')
+        save_opt_dict(opt_dict, args.output, f'opts/opt{args.run}_class_{int(threshold)}.json')
         print('\n')
         print('Optimisation dict saved to: ', os.path.join(args.output, f'opts/opt'+args.run+'_class_{int(threshold)}.json'))
 
@@ -540,8 +540,8 @@ def main(args):
 
         ofile.write('\n')
         ofile.write(f'OPT (threshold: {int(threshold)}) costs\n')
-        ofile.write(f'Mean: {np.mean(opt_costs)}\n')
-        ofile.write(f'SD: {np.std(opt_costs)}\n')
+        ofile.write(f'Mean: {np.mean(c)}\n')
+        ofile.write(f'SD: {np.std(c)}\n')
 
         threshold_means.append(np.mean(c))
         threshold_sd.append(np.std(c))
@@ -588,7 +588,7 @@ def main(args):
         print('Transformations to optimse: ', top_opt)
         print('Random Trans to opt: ', rnd_opt)
 
-        o_m, o_sd, r_m, r_sd = run_top_reactions(args, top_opt, all_rnd_opt, threshold)
+        o_m, o_sd, r_m, r_sd = run_top_reactions(args, top_opt, all_random_opt, threshold)
         
         #plot figure
         fig4 = plt.figure()

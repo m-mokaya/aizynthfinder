@@ -41,3 +41,7 @@ Threshold range: (5-206.47759199025555)
 Cost threshold: 35
 Transformations to optimise: ['Halogenation', 'Unassigned', 'O-acylation to ester']
 Number of transformations: 3
+
+OPT (threshold: 35) costs
+Mean: 769.6367043159709
+SD: 764.5464470704633

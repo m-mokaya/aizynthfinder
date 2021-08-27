@@ -442,7 +442,7 @@ def main(args):
     """
     1. Run AiZ in explore and normal modes
     """
-    '''
+    
     print('Starting "std" run..')
     # Run AiZ in Std mode
     std_df = run_aiz(args.input, 'config_std.yml', args.output, f'hdfs/std_results_{args.run}.hdf5', args.nproc)
@@ -452,14 +452,15 @@ def main(args):
     # run AiZ in exp mode
     exp_df = run_aiz(args.input, 'config_exp.yml', args.output, f'hdfs/exp_results_{args.run}.hdf5', args.nproc)
     print('done.')
-    '''
-    std_df = pd.read_hdf(os.path.join(args.output, f'hdfs/std_results_{args.run}.hdf5'), 'table')
-    print('std route costs: ')
+    
+    print('\n')
+    #std_df = pd.read_hdf(os.path.join(args.output, f'hdfs/std_results_{args.run}.hdf5'), 'table')
+    #print('std route costs: ')
     std_costs = reaction_costs(std_df)
 
     print('\n')
-    exp_df = pd.read_hdf(os.path.join(args.output, f'hdfs/exp_results_{args.run}.hdf5'), 'table')
-    print('exp route costs: ')
+    #exp_df = pd.read_hdf(os.path.join(args.output, f'hdfs/exp_results_{args.run}.hdf5'), 'table')
+    #print('exp route costs: ')
     exp_costs = reaction_costs(exp_df)
 
 
